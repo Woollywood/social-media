@@ -21,12 +21,6 @@ export default tseslint.config(
     },
     settings: { react: { version: '18.3' } },
     rules: {
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
-        {
-          fixStyle: 'inline-type-imports',
-        },
-      ],
       'no-console': 'error',
       'no-duplicate-imports': 'error',
       'simple-import-sort/imports': [

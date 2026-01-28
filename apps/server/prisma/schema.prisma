@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator nestjsDto {
+  provider                        = "prisma-generator-nestjs-dto"
+  output                          = "../src/dto"
+  prismaClientImportPath          = ""
+  outputToNestJsResourceStructure = "true"
+  flatResourceStructure           = "false"
+  exportRelationModifierClasses   = "true"
+  reExport                        = "false"
+  generateFileTypes               = "all"
+  createDtoPrefix                 = "Create"
+  updateDtoPrefix                 = "Update"
+  dtoSuffix                       = "Dto"
+  entityPrefix                    = ""
+  entitySuffix                    = ""
+  classValidation                 = "true"
+  fileNamingStyle                 = "camel"
+  noDependencies                  = "false"
+  outputType                      = "class"
+  definiteAssignmentAssertion     = "false"
+  requiredResponseApiProperty     = "true"
+  prettier                        = "true"
+  wrapRelationsAsType             = "true"
+  showDefaultValues               = "false"
+}
+
+generator client {
+  provider     = "prisma-client"
+  output       = "./generated"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  /// @DtoReadOnly
+  /// @IsUUID
+  id        String   @id @default(uuid()) @db.Uuid
+  /// @DtoReadOnly
+  createdAt DateTime @default(now())
+  /// @DtoReadOnly
+  updatedAt DateTime @updatedAt
+
+  /// @DtoUpdateOptional
+  /// @IsEmail
+  email        String @unique
+  /// @DtoEntityHidden
+  passwordHash String
+
+  /// @DtoRelationCanConnectOnCreate
+  sessions Session[]
+}
+
+model Session {
+  /// @DtoReadOnly
+  /// @IsUUID
+  id        String   @id @default(uuid()) @db.Uuid
+  /// @DtoReadOnly
+  createdAt DateTime @default(now())
+  /// @DtoReadOnly
+  updatedAt DateTime @updatedAt
+
+  /// @DtoReadOnly
+  /// @IsUUID
+  userId       String @db.Uuid
+  /// @DtoReadOnly
+  /// @IsJWT
+  accessToken  String @unique
+  /// @DtoReadOnly
+  /// @IsJWT
+  refreshToken String @unique
+
+  /// @DtoRelationCanConnectOnCreate
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
