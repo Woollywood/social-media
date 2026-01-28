@@ -12,3 +12,67 @@ export const setupSwagger = (app: INestApplication) => {
     jsonDocumentUrl: 'swagger/json',
   });
 };
+
+export type PaginationParams = {
+  page?: number | string;
+  limit?: number | string;
+};
+
+export type PaginationResult = {
+  page: number;
+  limit: number;
+  skip: number;
+  take: number;
+};
+
+export type PaginationMeta = {
+  total: number;
+  page: number;
+  limit: number;
+  pages: number;
+};
+
+const DEFAULT_PAGE = 1;
+const DEFAULT_LIMIT = 20;
+const MAX_LIMIT = 100;
+
+const toPositiveInt = (
+  value: number | string | undefined,
+  fallback: number,
+) => {
+  if (value === undefined || value === null) {
+    return fallback;
+  }
+
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+
+  const intValue = Math.floor(parsed);
+  return intValue > 0 ? intValue : fallback;
+};
+
+export const normalizePagination = (
+  params: PaginationParams,
+): PaginationResult => {
+  const page = toPositiveInt(params.page, DEFAULT_PAGE);
+  const limit = Math.min(
+    Math.max(toPositiveInt(params.limit, DEFAULT_LIMIT), 1),
+    MAX_LIMIT,
+  );
+  const skip = (page - 1) * limit;
+
+  return { page, limit, skip, take: limit };
+};
+
+export const buildPaginationMeta = (
+  total: number,
+  page: number,
+  limit: number,
+): PaginationMeta => ({
+  total,
+  page,
+  limit,
+  pages: Math.ceil(total / limit),
+});
