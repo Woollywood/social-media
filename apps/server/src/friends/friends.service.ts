@@ -6,6 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
+import { NotificationsGateway } from '../notifications/notifications.gateway';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
 import { buildPaginationMeta, type PaginationResult } from '../utils';
@@ -18,6 +19,7 @@ export class FriendsService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly usersService: UsersService,
+    private readonly notificationsGateway: NotificationsGateway,
   ) {}
 
   async sendRequest(requesterId: string, receiverId: string) {
@@ -77,6 +79,20 @@ export class FriendsService {
           payload: { requestId: request.id, requesterId },
         },
       });
+
+      this.notificationsGateway.emitToUser(receiverId, 'notifications:new', {
+        type: 'FRIEND_REQUEST',
+        requestId: request.id,
+        requesterId,
+      });
+      this.notificationsGateway.emitToUser(
+        receiverId,
+        'friends:request:created',
+        {
+          requestId: request.id,
+          requesterId,
+        },
+      );
 
       return request;
     });
@@ -188,6 +204,42 @@ export class FriendsService {
         },
       });
 
+      this.notificationsGateway.emitToUser(
+        request.requesterId,
+        'notifications:new',
+        {
+          type: 'FRIEND_ACCEPT',
+          requestId: request.id,
+          friendId: request.receiverId,
+        },
+      );
+      this.notificationsGateway.emitToUser(
+        request.requesterId,
+        'friends:request:accepted',
+        {
+          requestId: request.id,
+          friendId: request.receiverId,
+        },
+      );
+      this.notificationsGateway.emitToUser(
+        request.receiverId,
+        'friends:request:accepted',
+        {
+          requestId: request.id,
+          friendId: request.requesterId,
+        },
+      );
+      this.notificationsGateway.emitToUser(
+        request.requesterId,
+        'friends:updated',
+        { friendId: request.receiverId },
+      );
+      this.notificationsGateway.emitToUser(
+        request.receiverId,
+        'friends:updated',
+        { friendId: request.requesterId },
+      );
+
       return updated;
     });
   }
@@ -223,6 +275,24 @@ export class FriendsService {
         },
       });
 
+      this.notificationsGateway.emitToUser(
+        request.requesterId,
+        'notifications:new',
+        {
+          type: 'FRIEND_DECLINE',
+          requestId: request.id,
+          friendId: request.receiverId,
+        },
+      );
+      this.notificationsGateway.emitToUser(
+        request.requesterId,
+        'friends:request:declined',
+        {
+          requestId: request.id,
+          friendId: request.receiverId,
+        },
+      );
+
       return updated;
     });
   }
@@ -241,12 +311,23 @@ export class FriendsService {
       throw new ConflictException('Friend request is not pending.');
     }
 
-    return this.prismaService.friendRequest.update({
+    const updated = await this.prismaService.friendRequest.update({
       where: { id: requestId },
       data: {
         status: FriendRequestStatus.Cancelled,
         respondedAt: new Date(),
       },
     });
+
+    this.notificationsGateway.emitToUser(
+      request.receiverId,
+      'friends:request:cancelled',
+      {
+        requestId: request.id,
+        requesterId: request.requesterId,
+      },
+    );
+
+    return updated;
   }
 }

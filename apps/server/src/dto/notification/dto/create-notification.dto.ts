@@ -1,6 +1,7 @@
-import { NotificationType, Prisma } from '../../../../prisma/generated/client';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
+
+import { NotificationType, Prisma } from '../../../../prisma/generated/client';
 
 export class CreateNotificationDto {
   @ApiProperty({

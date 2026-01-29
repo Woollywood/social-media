@@ -22,9 +22,9 @@ import { type RequestWithUser } from '../auth/types/request-with-user';
 import { normalizePagination } from '../utils';
 
 import { NotificationReadDto } from './dto/notification-read.dto';
-import { NotificationsReadAllDto } from './dto/notifications-read-all.dto';
 import { NotificationsListDto } from './dto/notifications-list.dto';
 import { NotificationsQueryDto } from './dto/notifications-query.dto';
+import { NotificationsReadAllDto } from './dto/notifications-read-all.dto';
 import { NotificationsService } from './notifications.service';
 
 @ApiTags('notifications')
@@ -38,10 +38,7 @@ export class NotificationsController {
   @ApiQuery({ type: NotificationsQueryDto })
   @ApiResponse({ status: 200, type: NotificationsListDto })
   @Get()
-  list(
-    @Request() req: RequestWithUser,
-    @Query() query: NotificationsQueryDto,
-  ) {
+  list(@Request() req: RequestWithUser, @Query() query: NotificationsQueryDto) {
     const pagination = normalizePagination(query);
     return this.notificationsService.list(
       req.user.id,

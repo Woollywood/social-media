@@ -1,10 +1,11 @@
-import { FriendRequestStatus } from '../../../../prisma/generated/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { User, type User as UserAsType } from '../../user/entities/user.entity';
+
+import { FriendRequestStatus } from '../../../../prisma/generated/client';
 import {
   Friendship,
   type Friendship as FriendshipAsType,
 } from '../../friendship/entities/friendship.entity';
+import { User, type User as UserAsType } from '../../user/entities/user.entity';
 
 export class FriendRequest {
   @ApiProperty({

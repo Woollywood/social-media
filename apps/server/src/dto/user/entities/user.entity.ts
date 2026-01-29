@@ -1,8 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Session,
-  type Session as SessionAsType,
-} from '../../session/entities/session.entity';
+
 import {
   FriendRequest,
   type FriendRequest as FriendRequestAsType,
@@ -15,6 +12,10 @@ import {
   Notification,
   type Notification as NotificationAsType,
 } from '../../notification/entities/notification.entity';
+import {
+  Session,
+  type Session as SessionAsType,
+} from '../../session/entities/session.entity';
 
 export class User {
   @ApiProperty({

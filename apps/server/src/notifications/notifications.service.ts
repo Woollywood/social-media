@@ -1,13 +1,26 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { PrismaService } from '../prisma/prisma.service';
 import { buildPaginationMeta, type PaginationResult } from '../utils';
 
+import { NotificationsGateway } from './notifications.gateway';
+
 @Injectable()
 export class NotificationsService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly notificationsGateway: NotificationsGateway,
+  ) {}
 
-  async list(userId: string, pagination: PaginationResult, unreadOnly?: boolean) {
+  async list(
+    userId: string,
+    pagination: PaginationResult,
+    unreadOnly?: boolean,
+  ) {
     const where = {
       recipientId: userId,
       ...(unreadOnly ? { readAt: null } : {}),
@@ -46,6 +59,10 @@ export class NotificationsService {
       data: { readAt: new Date() },
     });
 
+    this.notificationsGateway.emitToUser(userId, 'notifications:read', {
+      id: notificationId,
+    });
+
     return { success: true };
   }
 
@@ -53,6 +70,10 @@ export class NotificationsService {
     const result = await this.prismaService.notification.updateMany({
       where: { recipientId: userId, readAt: null },
       data: { readAt: new Date() },
+    });
+
+    this.notificationsGateway.emitToUser(userId, 'notifications:read-all', {
+      updated: result.count,
     });
 
     return { success: true, updated: result.count };

@@ -1,4 +1,5 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsNotEmpty,
   IsOptional,
@@ -6,7 +7,6 @@ import {
   IsUUID,
   ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 
 export class FriendshipUserIdFriendIdUniqueInputDto {
   @ApiProperty({

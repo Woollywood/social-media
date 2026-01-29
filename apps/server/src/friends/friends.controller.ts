@@ -20,8 +20,8 @@ import {
 } from '@nestjs/swagger';
 
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
-import { PaginationQueryDto } from '../dto/pagination/pagination-query.dto';
 import { type RequestWithUser } from '../auth/types/request-with-user';
+import { PaginationQueryDto } from '../dto/pagination/pagination-query.dto';
 import { normalizePagination } from '../utils';
 
 import { CreateFriendRequestDto } from './dto/create-friend-request.dto';

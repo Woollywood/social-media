@@ -1,5 +1,6 @@
-import { FriendRequestStatus } from '../../../../prisma/generated/client';
 import { ApiProperty } from '@nestjs/swagger';
+
+import { FriendRequestStatus } from '../../../../prisma/generated/client';
 
 export class FriendRequestDto {
   @ApiProperty({

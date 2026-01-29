@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User, type User as UserAsType } from '../../user/entities/user.entity';
+
 import {
   FriendRequest,
   type FriendRequest as FriendRequestAsType,
 } from '../../friendRequest/entities/friendRequest.entity';
+import { User, type User as UserAsType } from '../../user/entities/user.entity';
 
 export class Friendship {
   @ApiProperty({
