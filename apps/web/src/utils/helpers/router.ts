@@ -12,7 +12,13 @@ export const generateRouteMap = <T extends RouteObject>(
 ): ExtractConfig<T> =>
   config.reduce<ExtractConfig<T>>((acc, route) => {
     if (route.children) {
-      return { ...acc, ...generateRouteMap(route.children) }
+      return {
+        ...acc,
+        ...(typeof route.id !== 'undefined' && {
+          [route.id]: route.path,
+        }),
+        ...generateRouteMap(route.children),
+      }
     }
     if (!route.id) {
       return acc
