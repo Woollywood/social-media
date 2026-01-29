@@ -3,10 +3,10 @@ import qs from 'qs'
 
 export const createAxiosInstance = (config?: CreateAxiosDefaults) => {
   return axios.create({
-    adapter: 'fetch',
+    // adapter: 'fetch',
     paramsSerializer: (params) =>
       qs.stringify(params, { arrayFormat: 'repeat' }),
-    withCredentials: true,
+    // withCredentials: true,
     ...config,
   })
 }

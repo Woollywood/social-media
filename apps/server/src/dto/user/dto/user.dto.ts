@@ -19,4 +19,13 @@ export class UserDto {
     type: 'string',
   })
   email: string;
+  @ApiProperty({
+    type: 'string',
+  })
+  username: string;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  avatarUrl: string | null;
 }

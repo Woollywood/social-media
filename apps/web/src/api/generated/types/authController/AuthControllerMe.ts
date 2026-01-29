@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
+/* eslint-disable no-duplicate-imports */
 // @ts-nocheck
 
 /**
@@ -7,9 +9,9 @@
  * Do not edit manually.
  */
 
-import type { AuthUserDto } from '../AuthUserDto.ts'
+import type { UserDto } from '../UserDto.ts'
 
-export type AuthControllerMe200 = AuthUserDto
+export type AuthControllerMe200 = UserDto
 
 /**
  * @description Invalid access token.

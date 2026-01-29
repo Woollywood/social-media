@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-duplicate-imports */
 // @ts-nocheck
@@ -7,25 +9,23 @@
  * Do not edit manually.
  */
 
+import fetch from '@/api/client'
+import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
 import type {
   InfiniteData,
-  QueryClient,
   QueryKey,
+  QueryClient,
   UseSuspenseInfiniteQueryOptions,
   UseSuspenseInfiniteQueryResult,
 } from '@tanstack/react-query'
-import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
-import type fetch from '@/api/client'
 import type {
-  FriendsControllerListRequestsQueryParams,
   FriendsControllerListRequestsQueryResponse,
+  FriendsControllerListRequestsQueryParams,
 } from '../../types/friendsController/FriendsControllerListRequests.ts'
-
 import {
   infiniteQueryOptions,
   useSuspenseInfiniteQuery,
 } from '@tanstack/react-query'
-
 import { friendsControllerListRequests } from '../../clients/axios/friendsService/friendsControllerListRequests.ts'
 
 export const friendsControllerListRequestsSuspenseInfiniteQueryKey = (

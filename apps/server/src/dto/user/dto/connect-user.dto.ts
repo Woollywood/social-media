@@ -18,4 +18,11 @@ export class ConnectUserDto {
   @IsString()
   @IsEmail()
   email?: string;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  username?: string;
 }

@@ -61,7 +61,7 @@ export default defineConfig(() => {
           name: ({ group }) => `${group}Service`,
         },
         operations: true,
-        importPath: '@/api/client.ts',
+        importPath: '@/api/client',
       }),
       pluginReactQuery({
         output: {

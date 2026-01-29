@@ -56,7 +56,6 @@ export type {
   AuthControllerSignupMutation,
 } from './types/authController/AuthControllerSignup.ts'
 export type { AuthTokensDto } from './types/AuthTokensDto.ts'
-export type { AuthUserDto } from './types/AuthUserDto.ts'
 export type { CreateFriendRequestDto } from './types/CreateFriendRequestDto.ts'
 export type {
   FriendRequestDtoStatusEnumKey,

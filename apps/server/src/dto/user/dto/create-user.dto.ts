@@ -40,7 +40,21 @@ export class CreateUserDto {
   })
   @IsNotEmpty()
   @IsString()
+  username: string;
+  @ApiProperty({
+    type: 'string',
+  })
+  @IsNotEmpty()
+  @IsString()
   passwordHash: string;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  avatarUrl?: string | null;
   @ApiProperty({
     required: false,
     type: CreateUserSessionsRelationInputDto,

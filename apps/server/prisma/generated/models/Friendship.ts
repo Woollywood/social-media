@@ -671,10 +671,6 @@ export type FriendshipUncheckedUpdateManyWithoutSourceRequestNestedInput = {
     | Prisma.FriendshipScalarWhereInput[];
 };
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null;
-};
-
 export type FriendshipCreateWithoutUserInput = {
   id?: string;
   createdAt?: Date | string;

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
+/* eslint-disable no-duplicate-imports */
 // @ts-nocheck
 
 /**
@@ -24,4 +26,12 @@ export type UserDto = {
    * @type string
    */
   email: string
+  /**
+   * @type string
+   */
+  username: string
+  /**
+   * @type string
+   */
+  avatarUrl: string | null
 }

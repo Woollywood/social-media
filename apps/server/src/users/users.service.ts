@@ -15,9 +15,28 @@ export class UsersService {
     return this.prismaService.user.findUnique({ where: { id } });
   }
 
-  create(email: string, passwordHash: string) {
+  findPublicById(id: string) {
+    return this.prismaService.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        email: true,
+        username: true,
+        avatarUrl: true,
+      },
+    });
+  }
+
+  create(
+    email: string,
+    username: string,
+    passwordHash: string,
+    avatarUrl?: string,
+  ) {
     return this.prismaService.user.create({
-      data: { email, passwordHash },
+      data: { email, username, passwordHash, avatarUrl },
     });
   }
 
@@ -32,6 +51,7 @@ export class UsersService {
           createdAt: true,
           updatedAt: true,
           email: true,
+          username: true,
         },
       }),
       this.prismaService.user.count(),

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-duplicate-imports */
 // @ts-nocheck
@@ -7,16 +9,12 @@
  * Do not edit manually.
  */
 
+import fetch from '@/api/client'
+import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
 import type {
-  RequestConfig,
-  ResponseErrorConfig,
-} from '@/api/client.ts'
-import type {
-  FriendsControllerListRequestsQueryParams,
   FriendsControllerListRequestsQueryResponse,
+  FriendsControllerListRequestsQueryParams,
 } from '../../../types/friendsController/FriendsControllerListRequests.ts'
-
-import fetch from '@/api/client.ts'
 
 function getFriendsControllerListRequestsUrl() {
   const res = {

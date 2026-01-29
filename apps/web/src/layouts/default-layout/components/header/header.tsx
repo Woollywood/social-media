@@ -1,8 +1,12 @@
+import { AvatarImage } from '@radix-ui/react-avatar'
 import React from 'react'
 
+import { useAuthControllerMe } from '@/api/generated'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 export const Header: React.FC = () => {
+  const { data: user } = useAuthControllerMe()
+
   const [isScrolled, setIsScrolled] = React.useState(false)
 
   React.useEffect(() => {
@@ -35,14 +39,15 @@ export const Header: React.FC = () => {
         </div>
         <div className="flex items-center gap-3">
           <div className="hidden text-right sm:block">
-            <p className="text-sm font-semibold">Gerbe M.</p>
+            <p className="text-sm font-semibold">{user?.username}</p>
             <p className="text-xs text-muted-foreground">
               Статус: онлайн
             </p>
           </div>
           <Avatar className="size-10">
+            {user?.avatarUrl && <AvatarImage src={user.avatarUrl} />}
             <AvatarFallback className="text-sm font-semibold">
-              GM
+              {user?.username[0].toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </div>

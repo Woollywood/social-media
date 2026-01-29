@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-duplicate-imports */
 // @ts-nocheck
@@ -7,17 +9,13 @@
  * Do not edit manually.
  */
 
+import fetch from '@/api/client'
+import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
 import type {
-  RequestConfig,
-  ResponseErrorConfig,
-} from '@/api/client.ts'
-import type {
-  AuthControllerRefresh401,
   AuthControllerRefreshMutationRequest,
   AuthControllerRefreshMutationResponse,
+  AuthControllerRefresh401,
 } from '../../../types/authController/AuthControllerRefresh.ts'
-
-import fetch from '@/api/client.ts'
 
 function getAuthControllerRefreshUrl() {
   const res = { method: 'POST', url: `/api/v1/auth/refresh` as const }

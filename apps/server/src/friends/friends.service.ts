@@ -144,6 +144,7 @@ export class FriendsService {
               createdAt: true,
               updatedAt: true,
               email: true,
+              username: true,
             },
           },
         },

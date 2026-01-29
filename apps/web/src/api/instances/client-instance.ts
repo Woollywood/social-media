@@ -4,6 +4,7 @@ import {
   type InternalAxiosRequestConfig,
 } from 'axios'
 
+import { paths } from '@/router'
 import { sessionClient } from '@/services/session'
 import { envConfig } from '@/utils/constants/config'
 import { createAxiosInstance } from '@/utils/helpers/api'
@@ -42,10 +43,16 @@ class Interceptors {
   }
 
   async interceptRequest(config: InternalAxiosRequestConfig) {
-    const tokens = await sessionClient.getSessionTokens()
-    if (tokens) {
-      const { accessToken } = tokens
-      config.headers.Authorization = `Bearer ${accessToken}`
+    try {
+      const tokens = await sessionClient.getSessionTokens()
+
+      if (tokens) {
+        const { accessToken } = tokens
+        config.headers.Authorization = `Bearer ${accessToken}`
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
     }
     return config
   }
@@ -72,6 +79,7 @@ class Interceptors {
       } catch (error) {
         if (error instanceof Error) {
           sessionClient.deleteSession()
+          window.location.href = paths['sign-up']
         }
       }
     }

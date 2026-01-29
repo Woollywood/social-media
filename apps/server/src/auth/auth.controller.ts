@@ -15,8 +15,9 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
+import { UserDto } from '../dto/user/dto/user.dto';
+
 import { AuthTokensDto } from './dto/auth-tokens.dto';
-import { AuthUserDto } from './dto/auth-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { LogoutResponseDto } from './dto/logout-response.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
@@ -45,7 +46,12 @@ export class AuthController {
   @ApiResponse({ status: 201, type: AuthTokensDto })
   @Post('signup')
   signup(@Body() body: SignupDto) {
-    return this.authService.signup(body.email, body.password);
+    return this.authService.signup(
+      body.email,
+      body.username,
+      body.password,
+      body.avatarUrl,
+    );
   }
 
   @ApiOperation({ summary: 'Rotate access/refresh tokens.' })
@@ -59,7 +65,7 @@ export class AuthController {
   @UseGuards(AccessTokenGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get current user.' })
-  @ApiResponse({ status: 200, type: AuthUserDto })
+  @ApiResponse({ status: 200, type: UserDto })
   @ApiUnauthorizedResponse({ description: 'Invalid access token.' })
   @Get('me')
   me(@Request() req: RequestWithUser) {

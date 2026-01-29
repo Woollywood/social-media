@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-duplicate-imports */
 // @ts-nocheck
@@ -7,21 +9,19 @@
  * Do not edit manually.
  */
 
+import fetch from '@/api/client'
+import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
 import type {
-  QueryClient,
   UseMutationOptions,
   UseMutationResult,
+  QueryClient,
 } from '@tanstack/react-query'
-import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
-import type fetch from '@/api/client'
 import type {
-  AuthControllerLogin401,
   AuthControllerLoginMutationRequest,
   AuthControllerLoginMutationResponse,
+  AuthControllerLogin401,
 } from '../../types/authController/AuthControllerLogin.ts'
-
 import { mutationOptions, useMutation } from '@tanstack/react-query'
-
 import { authControllerLogin } from '../../clients/axios/authService/authControllerLogin.ts'
 
 export const authControllerLoginMutationKey = () =>

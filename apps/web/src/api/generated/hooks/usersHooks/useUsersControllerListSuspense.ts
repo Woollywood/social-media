@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-duplicate-imports */
 // @ts-nocheck
@@ -7,21 +9,19 @@
  * Do not edit manually.
  */
 
+import fetch from '@/api/client'
+import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
 import type {
-  QueryClient,
   QueryKey,
+  QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
 } from '@tanstack/react-query'
-import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
-import type fetch from '@/api/client'
 import type {
-  UsersControllerListQueryParams,
   UsersControllerListQueryResponse,
+  UsersControllerListQueryParams,
 } from '../../types/usersController/UsersControllerList.ts'
-
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
-
 import { usersControllerList } from '../../clients/axios/usersService/usersControllerList.ts'
 
 export const usersControllerListSuspenseQueryKey = (

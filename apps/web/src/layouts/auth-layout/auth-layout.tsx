@@ -10,7 +10,7 @@ export const AuthLayout: React.FC = () => {
   const { pathname } = useLocation()
 
   if (pathname === paths.auth) {
-    return <Navigate to={paths['sign-in']} />
+    return <Navigate to={paths['sign-up']} />
   }
 
   return (

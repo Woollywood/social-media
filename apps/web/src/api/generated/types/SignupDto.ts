@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
+/* eslint-disable no-duplicate-imports */
 // @ts-nocheck
 
 /**
@@ -15,5 +17,13 @@ export type SignupDto = {
   /**
    * @type string
    */
+  username: string
+  /**
+   * @type string
+   */
   password: string
+  /**
+   * @type string
+   */
+  avatarUrl: string
 }

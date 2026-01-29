@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-duplicate-imports */
 // @ts-nocheck
@@ -7,16 +9,12 @@
  * Do not edit manually.
  */
 
-import type {
-  RequestConfig,
-  ResponseErrorConfig,
-} from '@/api/client.ts'
+import fetch from '@/api/client'
+import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
 import type {
   FriendsControllerDeclineRequestMutationResponse,
   FriendsControllerDeclineRequestPathParams,
 } from '../../../types/friendsController/FriendsControllerDeclineRequest.ts'
-
-import fetch from '@/api/client.ts'
 
 function getFriendsControllerDeclineRequestUrl(
   id: FriendsControllerDeclineRequestPathParams['id']

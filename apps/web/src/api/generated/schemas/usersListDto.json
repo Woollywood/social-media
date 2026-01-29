@@ -9,9 +9,18 @@
           "id": { "type": "string" },
           "createdAt": { "type": "string", "format": "date-time" },
           "updatedAt": { "type": "string", "format": "date-time" },
-          "email": { "type": "string" }
+          "email": { "type": "string" },
+          "username": { "type": "string" },
+          "avatarUrl": { "type": "string", "nullable": true }
         },
-        "required": ["id", "createdAt", "updatedAt", "email"],
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt",
+          "email",
+          "username",
+          "avatarUrl"
+        ],
         "x-readme-ref-name": "UserDto"
       }
     },

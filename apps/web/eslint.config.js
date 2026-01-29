@@ -17,6 +17,7 @@ export default tseslint.config(
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
+      parserOptions: { tsconfigRootDir: import.meta.dirname },
       ecmaVersion: 2020,
       globals: {
         ...globals.browser,

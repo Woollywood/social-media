@@ -37,6 +37,15 @@ export class User {
   })
   email: string;
   @ApiProperty({
+    type: 'string',
+  })
+  username: string;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  avatarUrl: string | null;
+  @ApiProperty({
     type: () => Session,
     isArray: true,
     required: false,

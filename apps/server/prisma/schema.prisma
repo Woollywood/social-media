@@ -51,8 +51,14 @@ model User {
   /// @DtoUpdateOptional
   /// @IsEmail
   email        String @unique
+  /// @DtoUpdateOptional
+  /// @IsString
+  username     String @unique
   /// @DtoEntityHidden
   passwordHash String
+
+  /// @IsString
+  avatarUrl String?
 
   /// @DtoRelationCanConnectOnCreate
   sessions Session[]
@@ -103,9 +109,9 @@ enum NotificationType {
 model FriendRequest {
   /// @DtoReadOnly
   /// @IsUUID
-  id        String   @id @default(uuid()) @db.Uuid
+  id          String              @id @default(uuid()) @db.Uuid
   /// @DtoReadOnly
-  createdAt DateTime @default(now())
+  createdAt   DateTime            @default(now())
   respondedAt DateTime?
   status      FriendRequestStatus @default(PENDING)
 
@@ -114,8 +120,8 @@ model FriendRequest {
   /// @IsUUID
   receiverId  String @db.Uuid
 
-  requester User @relation("FriendRequestsSent", fields: [requesterId], references: [id], onDelete: Cascade)
-  receiver  User @relation("FriendRequestsReceived", fields: [receiverId], references: [id], onDelete: Cascade)
+  requester   User         @relation("FriendRequestsSent", fields: [requesterId], references: [id], onDelete: Cascade)
+  receiver    User         @relation("FriendRequestsReceived", fields: [receiverId], references: [id], onDelete: Cascade)
   friendships Friendship[] @relation("FriendRequestFriendships")
 
   @@index([receiverId, status])
@@ -130,14 +136,14 @@ model Friendship {
   createdAt DateTime @default(now())
 
   /// @IsUUID
-  userId   String @db.Uuid
+  userId          String  @db.Uuid
   /// @IsUUID
-  friendId String @db.Uuid
+  friendId        String  @db.Uuid
   /// @IsUUID
   sourceRequestId String? @db.Uuid
 
-  user          User          @relation("FriendshipUser", fields: [userId], references: [id], onDelete: Cascade)
-  friend        User          @relation("FriendshipFriend", fields: [friendId], references: [id], onDelete: Cascade)
+  user          User           @relation("FriendshipUser", fields: [userId], references: [id], onDelete: Cascade)
+  friend        User           @relation("FriendshipFriend", fields: [friendId], references: [id], onDelete: Cascade)
   sourceRequest FriendRequest? @relation("FriendRequestFriendships", fields: [sourceRequestId], references: [id], onDelete: SetNull)
 
   @@unique([userId, friendId])
@@ -147,15 +153,15 @@ model Friendship {
 model Notification {
   /// @DtoReadOnly
   /// @IsUUID
-  id        String   @id @default(uuid()) @db.Uuid
+  id        String    @id @default(uuid()) @db.Uuid
   /// @DtoReadOnly
-  createdAt DateTime @default(now())
-  readAt DateTime?
+  createdAt DateTime  @default(now())
+  readAt    DateTime?
 
   /// @IsUUID
-  recipientId String @db.Uuid
-  type NotificationType
-  payload Json?
+  recipientId String           @db.Uuid
+  type        NotificationType
+  payload     Json?
 
   recipient User @relation("UserNotifications", fields: [recipientId], references: [id], onDelete: Cascade)
 

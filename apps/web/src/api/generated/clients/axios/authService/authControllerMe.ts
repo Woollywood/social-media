@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-duplicate-imports */
 // @ts-nocheck
@@ -7,16 +9,12 @@
  * Do not edit manually.
  */
 
+import fetch from '@/api/client'
+import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
 import type {
-  RequestConfig,
-  ResponseErrorConfig,
-} from '@/api/client.ts'
-import type {
-  AuthControllerMe401,
   AuthControllerMeQueryResponse,
+  AuthControllerMe401,
 } from '../../../types/authController/AuthControllerMe.ts'
-
-import fetch from '@/api/client.ts'
 
 function getAuthControllerMeUrl() {
   const res = { method: 'GET', url: `/api/v1/auth/me` as const }

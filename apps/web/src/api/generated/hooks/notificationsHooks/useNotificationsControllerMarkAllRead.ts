@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-duplicate-imports */
 // @ts-nocheck
@@ -7,17 +9,15 @@
  * Do not edit manually.
  */
 
+import fetch from '@/api/client'
+import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
 import type {
-  QueryClient,
   UseMutationOptions,
   UseMutationResult,
+  QueryClient,
 } from '@tanstack/react-query'
-import type { RequestConfig, ResponseErrorConfig } from '@/api/client'
-import type fetch from '@/api/client'
 import type { NotificationsControllerMarkAllReadMutationResponse } from '../../types/notificationsController/NotificationsControllerMarkAllRead.ts'
-
 import { mutationOptions, useMutation } from '@tanstack/react-query'
-
 import { notificationsControllerMarkAllRead } from '../../clients/axios/notificationsService/notificationsControllerMarkAllRead.ts'
 
 export const notificationsControllerMarkAllReadMutationKey = () =>

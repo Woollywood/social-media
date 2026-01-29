@@ -1,3 +1,5 @@
+// ссылка на конфу с объяснениями https://www.youtube.com/watch?v=woABfqsgRZc
+
 import { type RouteObject } from 'react-router'
 
 import { type Prettify } from '../utility'

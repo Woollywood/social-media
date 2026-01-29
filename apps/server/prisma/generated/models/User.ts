@@ -29,7 +29,9 @@ export type UserMinAggregateOutputType = {
   createdAt: Date | null;
   updatedAt: Date | null;
   email: string | null;
+  username: string | null;
   passwordHash: string | null;
+  avatarUrl: string | null;
 };
 
 export type UserMaxAggregateOutputType = {
@@ -37,7 +39,9 @@ export type UserMaxAggregateOutputType = {
   createdAt: Date | null;
   updatedAt: Date | null;
   email: string | null;
+  username: string | null;
   passwordHash: string | null;
+  avatarUrl: string | null;
 };
 
 export type UserCountAggregateOutputType = {
@@ -45,7 +49,9 @@ export type UserCountAggregateOutputType = {
   createdAt: number;
   updatedAt: number;
   email: number;
+  username: number;
   passwordHash: number;
+  avatarUrl: number;
   _all: number;
 };
 
@@ -54,7 +60,9 @@ export type UserMinAggregateInputType = {
   createdAt?: true;
   updatedAt?: true;
   email?: true;
+  username?: true;
   passwordHash?: true;
+  avatarUrl?: true;
 };
 
 export type UserMaxAggregateInputType = {
@@ -62,7 +70,9 @@ export type UserMaxAggregateInputType = {
   createdAt?: true;
   updatedAt?: true;
   email?: true;
+  username?: true;
   passwordHash?: true;
+  avatarUrl?: true;
 };
 
 export type UserCountAggregateInputType = {
@@ -70,7 +80,9 @@ export type UserCountAggregateInputType = {
   createdAt?: true;
   updatedAt?: true;
   email?: true;
+  username?: true;
   passwordHash?: true;
+  avatarUrl?: true;
   _all?: true;
 };
 
@@ -158,7 +170,9 @@ export type UserGroupByOutputType = {
   createdAt: Date;
   updatedAt: Date;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl: string | null;
   _count: UserCountAggregateOutputType | null;
   _min: UserMinAggregateOutputType | null;
   _max: UserMaxAggregateOutputType | null;
@@ -184,7 +198,9 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<'User'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'User'> | Date | string;
   email?: Prisma.StringFilter<'User'> | string;
+  username?: Prisma.StringFilter<'User'> | string;
   passwordHash?: Prisma.StringFilter<'User'> | string;
+  avatarUrl?: Prisma.StringNullableFilter<'User'> | string | null;
   sessions?: Prisma.SessionListRelationFilter;
   friendRequestsSent?: Prisma.FriendRequestListRelationFilter;
   friendRequestsReceived?: Prisma.FriendRequestListRelationFilter;
@@ -198,7 +214,9 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  username?: Prisma.SortOrder;
   passwordHash?: Prisma.SortOrder;
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
   sessions?: Prisma.SessionOrderByRelationAggregateInput;
   friendRequestsSent?: Prisma.FriendRequestOrderByRelationAggregateInput;
   friendRequestsReceived?: Prisma.FriendRequestOrderByRelationAggregateInput;
@@ -211,12 +229,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string;
     email?: string;
+    username?: string;
     AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     OR?: Prisma.UserWhereInput[];
     NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     createdAt?: Prisma.DateTimeFilter<'User'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'User'> | Date | string;
     passwordHash?: Prisma.StringFilter<'User'> | string;
+    avatarUrl?: Prisma.StringNullableFilter<'User'> | string | null;
     sessions?: Prisma.SessionListRelationFilter;
     friendRequestsSent?: Prisma.FriendRequestListRelationFilter;
     friendRequestsReceived?: Prisma.FriendRequestListRelationFilter;
@@ -224,7 +244,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     friendsOf?: Prisma.FriendshipListRelationFilter;
     notifications?: Prisma.NotificationListRelationFilter;
   },
-  'id' | 'email'
+  'id' | 'email' | 'username'
 >;
 
 export type UserOrderByWithAggregationInput = {
@@ -232,7 +252,9 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  username?: Prisma.SortOrder;
   passwordHash?: Prisma.SortOrder;
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
   _count?: Prisma.UserCountOrderByAggregateInput;
   _max?: Prisma.UserMaxOrderByAggregateInput;
   _min?: Prisma.UserMinOrderByAggregateInput;
@@ -250,7 +272,9 @@ export type UserScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<'User'> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<'User'> | Date | string;
   email?: Prisma.StringWithAggregatesFilter<'User'> | string;
+  username?: Prisma.StringWithAggregatesFilter<'User'> | string;
   passwordHash?: Prisma.StringWithAggregatesFilter<'User'> | string;
+  avatarUrl?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null;
 };
 
 export type UserCreateInput = {
@@ -258,7 +282,9 @@ export type UserCreateInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput;
@@ -272,7 +298,9 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput;
@@ -286,7 +314,9 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput;
@@ -300,7 +330,9 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput;
@@ -314,7 +346,9 @@ export type UserCreateManyInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
 };
 
 export type UserUpdateManyMutationInput = {
@@ -322,7 +356,9 @@ export type UserUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
 
 export type UserUncheckedUpdateManyInput = {
@@ -330,7 +366,9 @@ export type UserUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
 
 export type UserCountOrderByAggregateInput = {
@@ -338,7 +376,9 @@ export type UserCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  username?: Prisma.SortOrder;
   passwordHash?: Prisma.SortOrder;
+  avatarUrl?: Prisma.SortOrder;
 };
 
 export type UserMaxOrderByAggregateInput = {
@@ -346,7 +386,9 @@ export type UserMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  username?: Prisma.SortOrder;
   passwordHash?: Prisma.SortOrder;
+  avatarUrl?: Prisma.SortOrder;
 };
 
 export type UserMinOrderByAggregateInput = {
@@ -354,7 +396,9 @@ export type UserMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  username?: Prisma.SortOrder;
   passwordHash?: Prisma.SortOrder;
+  avatarUrl?: Prisma.SortOrder;
 };
 
 export type UserScalarRelationFilter = {
@@ -368,6 +412,10 @@ export type StringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string;
+};
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null;
 };
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -531,7 +579,9 @@ export type UserCreateWithoutSessionsInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput;
   friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput;
@@ -544,7 +594,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput;
   friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput;
@@ -585,7 +637,9 @@ export type UserUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput;
   friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput;
@@ -598,7 +652,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput;
   friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput;
@@ -611,7 +667,9 @@ export type UserCreateWithoutFriendRequestsSentInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
   friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput;
   friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput;
@@ -624,7 +682,9 @@ export type UserUncheckedCreateWithoutFriendRequestsSentInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput;
   friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput;
@@ -645,7 +705,9 @@ export type UserCreateWithoutFriendRequestsReceivedInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutRequesterInput;
   friendships?: Prisma.FriendshipCreateNestedManyWithoutUserInput;
@@ -658,7 +720,9 @@ export type UserUncheckedCreateWithoutFriendRequestsReceivedInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutRequesterInput;
   friendships?: Prisma.FriendshipUncheckedCreateNestedManyWithoutUserInput;
@@ -699,7 +763,9 @@ export type UserUpdateWithoutFriendRequestsSentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput;
   friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput;
@@ -712,7 +778,9 @@ export type UserUncheckedUpdateWithoutFriendRequestsSentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput;
   friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput;
@@ -745,7 +813,9 @@ export type UserUpdateWithoutFriendRequestsReceivedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutRequesterNestedInput;
   friendships?: Prisma.FriendshipUpdateManyWithoutUserNestedInput;
@@ -758,7 +828,9 @@ export type UserUncheckedUpdateWithoutFriendRequestsReceivedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutRequesterNestedInput;
   friendships?: Prisma.FriendshipUncheckedUpdateManyWithoutUserNestedInput;
@@ -771,7 +843,9 @@ export type UserCreateWithoutFriendshipsInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput;
@@ -784,7 +858,9 @@ export type UserUncheckedCreateWithoutFriendshipsInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput;
@@ -805,7 +881,9 @@ export type UserCreateWithoutFriendsOfInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput;
@@ -818,7 +896,9 @@ export type UserUncheckedCreateWithoutFriendsOfInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput;
@@ -859,7 +939,9 @@ export type UserUpdateWithoutFriendshipsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput;
@@ -872,7 +954,9 @@ export type UserUncheckedUpdateWithoutFriendshipsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput;
@@ -905,7 +989,9 @@ export type UserUpdateWithoutFriendsOfInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput;
@@ -918,7 +1004,9 @@ export type UserUncheckedUpdateWithoutFriendsOfInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput;
@@ -931,7 +1019,9 @@ export type UserCreateWithoutNotificationsInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutReceiverInput;
@@ -944,7 +1034,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   email: string;
+  username: string;
   passwordHash: string;
+  avatarUrl?: string | null;
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutRequesterInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutReceiverInput;
@@ -985,7 +1077,9 @@ export type UserUpdateWithoutNotificationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutReceiverNestedInput;
@@ -998,7 +1092,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
   friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutRequesterNestedInput;
   friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutReceiverNestedInput;
@@ -1115,7 +1211,9 @@ export type UserSelect<
     createdAt?: boolean;
     updatedAt?: boolean;
     email?: boolean;
+    username?: boolean;
     passwordHash?: boolean;
+    avatarUrl?: boolean;
     sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
     friendRequestsSent?: boolean | Prisma.User$friendRequestsSentArgs<ExtArgs>;
     friendRequestsReceived?:
@@ -1138,7 +1236,9 @@ export type UserSelectCreateManyAndReturn<
     createdAt?: boolean;
     updatedAt?: boolean;
     email?: boolean;
+    username?: boolean;
     passwordHash?: boolean;
+    avatarUrl?: boolean;
   },
   ExtArgs['result']['user']
 >;
@@ -1152,7 +1252,9 @@ export type UserSelectUpdateManyAndReturn<
     createdAt?: boolean;
     updatedAt?: boolean;
     email?: boolean;
+    username?: boolean;
     passwordHash?: boolean;
+    avatarUrl?: boolean;
   },
   ExtArgs['result']['user']
 >;
@@ -1162,14 +1264,22 @@ export type UserSelectScalar = {
   createdAt?: boolean;
   updatedAt?: boolean;
   email?: boolean;
+  username?: boolean;
   passwordHash?: boolean;
+  avatarUrl?: boolean;
 };
 
 export type UserOmit<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
-  'id' | 'createdAt' | 'updatedAt' | 'email' | 'passwordHash',
+  | 'id'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'email'
+  | 'username'
+  | 'passwordHash'
+  | 'avatarUrl',
   ExtArgs['result']['user']
 >;
 export type UserInclude<
@@ -1232,9 +1342,18 @@ export type $UserPayload<
        */
       email: string;
       /**
+       * @DtoUpdateOptional
+       * @IsString
+       */
+      username: string;
+      /**
        * @DtoEntityHidden
        */
       passwordHash: string;
+      /**
+       * @IsString
+       */
+      avatarUrl: string | null;
     },
     ExtArgs['result']['user']
   >;
@@ -1901,7 +2020,9 @@ export interface UserFieldRefs {
   readonly createdAt: Prisma.FieldRef<'User', 'DateTime'>;
   readonly updatedAt: Prisma.FieldRef<'User', 'DateTime'>;
   readonly email: Prisma.FieldRef<'User', 'String'>;
+  readonly username: Prisma.FieldRef<'User', 'String'>;
   readonly passwordHash: Prisma.FieldRef<'User', 'String'>;
+  readonly avatarUrl: Prisma.FieldRef<'User', 'String'>;
 }
 
 // Custom InputTypes

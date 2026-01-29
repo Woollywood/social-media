@@ -58,14 +58,24 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async signup(email: string, password: string) {
+  async signup(
+    email: string,
+    username: string,
+    password: string,
+    avatarUrl?: string,
+  ) {
     const existing = await this.usersService.findByEmail(email);
     if (existing) {
       throw new ConflictException('Email already registered.');
     }
 
     const passwordHash = await hashPassword(password);
-    const user = await this.usersService.create(email, passwordHash);
+    const user = await this.usersService.create(
+      email,
+      username,
+      passwordHash,
+      avatarUrl,
+    );
 
     return this.issueTokens(user.id);
   }
@@ -125,12 +135,12 @@ export class AuthService {
       throw new UnauthorizedException('Access token not found.');
     }
 
-    const user = await this.usersService.findById(session.userId);
+    const user = await this.usersService.findPublicById(session.userId);
     if (!user) {
       throw new UnauthorizedException('User not found.');
     }
 
-    return { id: user.id, email: user.email };
+    return user;
   }
 
   async logout(accessToken: string) {

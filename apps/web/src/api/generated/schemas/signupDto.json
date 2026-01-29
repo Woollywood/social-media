@@ -2,8 +2,13 @@
   "type": "object",
   "properties": {
     "email": { "type": "string", "example": "user@example.com" },
-    "password": { "type": "string", "example": "StrongPassword123!" }
+    "username": { "type": "string", "example": "john_doe" },
+    "password": { "type": "string", "example": "StrongPassword123!" },
+    "avatarUrl": {
+      "type": "string",
+      "example": "http://example.url.com"
+    }
   },
-  "required": ["email", "password"],
+  "required": ["email", "username", "password", "avatarUrl"],
   "x-readme-ref-name": "SignupDto"
 }
