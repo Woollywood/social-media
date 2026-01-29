@@ -1,5 +1,4 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEmail,
@@ -8,7 +7,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-
+import { Type } from 'class-transformer';
 import {
   ConnectSessionDto,
   type ConnectSessionDto as ConnectSessionDtoAsType,

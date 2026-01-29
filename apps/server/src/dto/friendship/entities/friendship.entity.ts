@@ -1,7 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User, type User as UserAsType } from '../../user/entities/user.entity';
+import {
+  FriendRequest,
+  type FriendRequest as FriendRequestAsType,
+} from '../../friendRequest/entities/friendRequest.entity';
 
-export class Session {
+export class Friendship {
   @ApiProperty({
     type: 'string',
   })
@@ -13,24 +17,31 @@ export class Session {
   createdAt: Date;
   @ApiProperty({
     type: 'string',
-    format: 'date-time',
-  })
-  updatedAt: Date;
-  @ApiProperty({
-    type: 'string',
   })
   userId: string;
   @ApiProperty({
     type: 'string',
   })
-  accessToken: string;
+  friendId: string;
   @ApiProperty({
     type: 'string',
+    nullable: true,
   })
-  refreshToken: string;
+  sourceRequestId: string | null;
   @ApiProperty({
     type: () => User,
     required: false,
   })
   user?: UserAsType;
+  @ApiProperty({
+    type: () => User,
+    required: false,
+  })
+  friend?: UserAsType;
+  @ApiProperty({
+    type: () => FriendRequest,
+    required: false,
+    nullable: true,
+  })
+  sourceRequest?: FriendRequestAsType | null;
 }

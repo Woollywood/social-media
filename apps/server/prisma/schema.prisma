@@ -56,6 +56,12 @@ model User {
 
   /// @DtoRelationCanConnectOnCreate
   sessions Session[]
+
+  friendRequestsSent     FriendRequest[] @relation("FriendRequestsSent")
+  friendRequestsReceived FriendRequest[] @relation("FriendRequestsReceived")
+  friendships            Friendship[]    @relation("FriendshipUser")
+  friendsOf              Friendship[]    @relation("FriendshipFriend")
+  notifications          Notification[]  @relation("UserNotifications")
 }
 
 model Session {
@@ -79,4 +85,79 @@ model Session {
 
   /// @DtoRelationCanConnectOnCreate
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  CANCELLED
+}
+
+enum NotificationType {
+  FRIEND_REQUEST
+  FRIEND_ACCEPT
+  FRIEND_DECLINE
+}
+
+model FriendRequest {
+  /// @DtoReadOnly
+  /// @IsUUID
+  id        String   @id @default(uuid()) @db.Uuid
+  /// @DtoReadOnly
+  createdAt DateTime @default(now())
+  respondedAt DateTime?
+  status      FriendRequestStatus @default(PENDING)
+
+  /// @IsUUID
+  requesterId String @db.Uuid
+  /// @IsUUID
+  receiverId  String @db.Uuid
+
+  requester User @relation("FriendRequestsSent", fields: [requesterId], references: [id], onDelete: Cascade)
+  receiver  User @relation("FriendRequestsReceived", fields: [receiverId], references: [id], onDelete: Cascade)
+  friendships Friendship[] @relation("FriendRequestFriendships")
+
+  @@index([receiverId, status])
+  @@index([requesterId, status])
+}
+
+model Friendship {
+  /// @DtoReadOnly
+  /// @IsUUID
+  id        String   @id @default(uuid()) @db.Uuid
+  /// @DtoReadOnly
+  createdAt DateTime @default(now())
+
+  /// @IsUUID
+  userId   String @db.Uuid
+  /// @IsUUID
+  friendId String @db.Uuid
+  /// @IsUUID
+  sourceRequestId String? @db.Uuid
+
+  user          User          @relation("FriendshipUser", fields: [userId], references: [id], onDelete: Cascade)
+  friend        User          @relation("FriendshipFriend", fields: [friendId], references: [id], onDelete: Cascade)
+  sourceRequest FriendRequest? @relation("FriendRequestFriendships", fields: [sourceRequestId], references: [id], onDelete: SetNull)
+
+  @@unique([userId, friendId])
+  @@index([friendId])
+}
+
+model Notification {
+  /// @DtoReadOnly
+  /// @IsUUID
+  id        String   @id @default(uuid()) @db.Uuid
+  /// @DtoReadOnly
+  createdAt DateTime @default(now())
+  readAt DateTime?
+
+  /// @IsUUID
+  recipientId String @db.Uuid
+  type NotificationType
+  payload Json?
+
+  recipient User @relation("UserNotifications", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@index([recipientId, readAt])
 }

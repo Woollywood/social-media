@@ -1,7 +1,8 @@
+import { NotificationType, Prisma } from '../../../../prisma/generated/client';
 import { ApiProperty } from '@nestjs/swagger';
 import { User, type User as UserAsType } from '../../user/entities/user.entity';
 
-export class Session {
+export class Notification {
   @ApiProperty({
     type: 'string',
   })
@@ -14,23 +15,26 @@ export class Session {
   @ApiProperty({
     type: 'string',
     format: 'date-time',
+    nullable: true,
   })
-  updatedAt: Date;
+  readAt: Date | null;
   @ApiProperty({
     type: 'string',
   })
-  userId: string;
+  recipientId: string;
   @ApiProperty({
-    type: 'string',
+    enum: NotificationType,
+    enumName: 'NotificationType',
   })
-  accessToken: string;
+  type: NotificationType;
   @ApiProperty({
-    type: 'string',
+    type: () => Object,
+    nullable: true,
   })
-  refreshToken: string;
+  payload: Prisma.JsonValue | null;
   @ApiProperty({
     type: () => User,
     required: false,
   })
-  user?: UserAsType;
+  recipient?: UserAsType;
 }
