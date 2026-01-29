@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "refreshToken": {
+      "type": "string",
+      "description": "Refresh token issued during login or refresh."
+    }
+  },
+  "required": ["refreshToken"],
+  "x-readme-ref-name": "RefreshTokenDto"
+}

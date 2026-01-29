@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "3b19d11d-6a06-4c5a-b2e5-2bbff10c80e4"
+    },
+    "email": { "type": "string", "example": "user@example.com" }
+  },
+  "required": ["id", "email"],
+  "x-readme-ref-name": "AuthUserDto"
+}

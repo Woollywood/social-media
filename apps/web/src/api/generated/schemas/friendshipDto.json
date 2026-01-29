@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "d8b6bff3-5fcb-4fb9-8a8b-46d8457cfcad"
+    },
+    "createdAt": { "format": "date-time", "type": "string" },
+    "friend": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "email": { "type": "string" }
+      },
+      "required": ["id", "createdAt", "updatedAt", "email"],
+      "x-readme-ref-name": "UserDto"
+    }
+  },
+  "required": ["id", "createdAt", "friend"],
+  "x-readme-ref-name": "FriendshipDto"
+}

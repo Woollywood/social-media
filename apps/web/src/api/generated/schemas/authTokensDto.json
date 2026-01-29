@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "accessToken": {
+      "type": "string",
+      "description": "Access token for protected routes."
+    },
+    "refreshToken": {
+      "type": "string",
+      "description": "Refresh token for token rotation."
+    }
+  },
+  "required": ["accessToken", "refreshToken"],
+  "x-readme-ref-name": "AuthTokensDto"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "email": { "type": "string" }
+  },
+  "required": ["id", "createdAt", "updatedAt", "email"],
+  "x-readme-ref-name": "UserDto"
+}

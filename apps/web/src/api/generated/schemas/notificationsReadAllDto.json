@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "success": { "type": "boolean", "example": true },
+    "updated": {
+      "type": "number",
+      "description": "Number of notifications updated.",
+      "example": 3,
+      "minimum": 0
+    }
+  },
+  "required": ["success", "updated"],
+  "x-readme-ref-name": "NotificationsReadAllDto"
+}

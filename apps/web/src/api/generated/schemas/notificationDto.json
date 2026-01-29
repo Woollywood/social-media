@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "16c52df6-2c82-4692-981a-746b44a1979f"
+    },
+    "createdAt": { "format": "date-time", "type": "string" },
+    "readAt": { "type": "object", "format": "date-time" },
+    "recipientId": {
+      "type": "string",
+      "example": "3b19d11d-6a06-4c5a-b2e5-2bbff10c80e4"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["FRIEND_REQUEST", "FRIEND_ACCEPT", "FRIEND_DECLINE"]
+    },
+    "payload": {
+      "type": "object",
+      "description": "Notification payload for UI routing."
+    }
+  },
+  "required": ["id", "createdAt", "recipientId", "type"],
+  "x-readme-ref-name": "NotificationDto"
+}

@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "5cd5a7b5-0ad7-4e6b-82c6-5f7e5ed7d8f3"
+    },
+    "createdAt": { "format": "date-time", "type": "string" },
+    "respondedAt": { "type": "object", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["PENDING", "ACCEPTED", "DECLINED", "CANCELLED"]
+    },
+    "requesterId": {
+      "type": "string",
+      "example": "3b19d11d-6a06-4c5a-b2e5-2bbff10c80e4"
+    },
+    "receiverId": {
+      "type": "string",
+      "example": "bb0e686d-5ac7-4d98-8b08-8f4c51b3b961"
+    }
+  },
+  "required": [
+    "id",
+    "createdAt",
+    "status",
+    "requesterId",
+    "receiverId"
+  ],
+  "x-readme-ref-name": "FriendRequestDto"
+}
