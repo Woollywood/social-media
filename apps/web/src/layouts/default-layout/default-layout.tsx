@@ -13,13 +13,13 @@ import React, { type FunctionComponent } from 'react'
 import { Link, Outlet } from 'react-router'
 
 import { Link as TypedLink } from '@/components/shared/link'
-import { Button } from '@/components/ui/button'
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+  Panel,
+  PanelContent,
+  PanelHeader,
+  PanelTitle,
+} from '@/components/shared/panel'
+import { Button } from '@/components/ui/button'
 import { paths } from '@/router'
 
 import { Header } from './components/header'
@@ -47,19 +47,23 @@ export const DefaultLayout: React.FC = () => {
       <Header />
       <div className="mx-auto flex min-h-screen w-full max-w-7xl gap-6 px-4 pb-6 pt-24">
         <aside className="sticky top-24 hidden h-fit w-64 shrink-0 flex-col gap-4 lg:flex">
-          <Card className="gap-0 py-0">
-            <CardHeader className="pb-0 pt-4">
-              <CardTitle className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <Panel
+            tone="glass"
+            hover="glow"
+            className="border-border/60"
+          >
+            <PanelHeader className="pb-0 pt-5">
+              <PanelTitle className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
                 Главное меню
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="mt-2 flex flex-col gap-2 pb-4">
+              </PanelTitle>
+            </PanelHeader>
+            <PanelContent className="mt-3 flex flex-col gap-1 pb-5">
               {links.map(({ label, Icon, path }) => (
                 <Button
                   asChild
                   key={label}
                   variant="ghost"
-                  className="w-full justify-between rounded-xl border border-transparent px-3 py-2 text-left hover:border-border"
+                  className="w-full justify-between rounded-lg border border-transparent px-3 py-2 text-left text-sm font-medium text-muted-foreground transition-colors hover:border-border/60 hover:bg-muted/60 hover:text-foreground"
                   type="button"
                 >
                   <Link to={path}>
@@ -68,31 +72,35 @@ export const DefaultLayout: React.FC = () => {
                   </Link>
                 </Button>
               ))}
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
 
-          <Card className="gap-0 py-0">
-            <CardHeader className="pb-0 pt-4">
-              <CardTitle className="text-sm font-semibold">
+          <Panel
+            tone="gradient"
+            hover="lift"
+            className="border-border/60"
+          >
+            <PanelHeader className="pb-0 pt-5">
+              <PanelTitle className="text-sm font-semibold">
                 Быстрые действия
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="mt-3 flex flex-col gap-2 pb-4">
-              <Button className="w-full rounded-xl" type="button">
+              </PanelTitle>
+            </PanelHeader>
+            <PanelContent className="mt-3 flex flex-col gap-2 pb-5">
+              <Button className="w-full rounded-full" type="button">
                 Создать пост
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className="w-full rounded-xl"
+                className="w-full rounded-full border-border/70"
                 type="button"
               >
                 <TypedLink to={{ path: paths['find-friends'] }}>
                   Найти друзей
                 </TypedLink>
               </Button>
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
         </aside>
         <Outlet />
       </div>

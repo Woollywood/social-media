@@ -2,14 +2,20 @@ import { UserPlus } from 'lucide-react'
 import React from 'react'
 import { Link, Outlet } from 'react-router'
 
+import {
+  Panel,
+  PanelContent,
+  PanelHeader,
+  PanelTitle,
+} from '@/components/shared/panel'
+import {
+  UserCard,
+  UserCardInfo,
+  UserCardSubtitle,
+  UserCardTitle,
+} from '@/components/shared/user-card'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { paths } from '@/router'
 
 type LinkProp = {
@@ -34,13 +40,13 @@ export const FriendsLayout: React.FC = () => {
         </div>
 
         <aside className="sticky top-24 hidden h-fit w-72 shrink-0 flex-col gap-4 lg:flex">
-          <Card className="gap-0 py-0">
-            <CardHeader className="pb-0 pt-4">
-              <CardTitle className="text-sm font-semibold">
+          <Panel tone="glass" hover="glow">
+            <PanelHeader className="pb-0 pt-4">
+              <PanelTitle className="text-sm font-semibold">
                 Разделы друзей
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="mt-3 flex flex-col gap-2 pb-4 text-sm text-muted-foreground">
+              </PanelTitle>
+            </PanelHeader>
+            <PanelContent className="mt-3 flex flex-col gap-2 pb-4 text-sm text-muted-foreground">
               {links.map(({ label, path }) => (
                 <Button
                   asChild
@@ -54,16 +60,16 @@ export const FriendsLayout: React.FC = () => {
                   </Link>
                 </Button>
               ))}
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
 
-          <Card className="gap-0 py-0">
-            <CardHeader className="pb-0 pt-4">
-              <CardTitle className="text-sm font-semibold">
+          <Panel tone="soft">
+            <PanelHeader className="pb-0 pt-4">
+              <PanelTitle className="text-sm font-semibold">
                 Возможные друзья
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="mt-3 space-y-3 pb-4 text-sm">
+              </PanelTitle>
+            </PanelHeader>
+            <PanelContent className="mt-3 space-y-3 pb-4 text-sm">
               {[
                 {
                   name: 'Анастасия Соколова',
@@ -86,36 +92,38 @@ export const FriendsLayout: React.FC = () => {
                   mutual: 9,
                 },
               ].map((person) => (
-                <Card key={person.name} className="gap-0 py-0">
-                  <CardContent className="flex items-center justify-between px-3 py-2">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="size-9">
-                        <AvatarFallback className="text-xs font-semibold">
-                          {person.initials}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold">
-                          {person.name}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Общих друзей: {person.mutual}
-                        </p>
-                      </div>
-                    </div>
-                    <Button
-                      size="icon-xs"
-                      variant="outline"
-                      type="button"
-                      className="shrink-0"
-                    >
-                      <UserPlus className="size-3.5" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                <UserCard
+                  key={person.name}
+                  size="sm"
+                  variant="soft"
+                  hover="none"
+                  className="gap-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <Avatar className="size-9">
+                      <AvatarFallback className="text-xs font-semibold">
+                        {person.initials}
+                      </AvatarFallback>
+                    </Avatar>
+                    <UserCardInfo>
+                      <UserCardTitle>{person.name}</UserCardTitle>
+                      <UserCardSubtitle>
+                        Общих друзей: {person.mutual}
+                      </UserCardSubtitle>
+                    </UserCardInfo>
+                  </div>
+                  <Button
+                    size="icon-xs"
+                    variant="outline"
+                    type="button"
+                    className="shrink-0"
+                  >
+                    <UserPlus className="size-3.5" />
+                  </Button>
+                </UserCard>
               ))}
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
         </aside>
       </div>
     </div>
