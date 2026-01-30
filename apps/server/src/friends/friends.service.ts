@@ -144,8 +144,25 @@ export class FriendsService {
       this.prismaService.friendRequest.count({ where }),
     ]);
 
+    const relatedUsers = items.flatMap((item) => [
+      item.requester,
+      item.receiver,
+    ]);
+    const uniqueUsers = Array.from(
+      new Map(relatedUsers.map((user) => [user.id, user])).values(),
+    );
+    const usersWithMutuals = await this.usersService.addMutualFriendsCount(
+      userId,
+      uniqueUsers,
+    );
+    const usersById = new Map(usersWithMutuals.map((user) => [user.id, user]));
+
     return {
-      items,
+      items: items.map((item) => ({
+        ...item,
+        requester: usersById.get(item.requester.id) ?? item.requester,
+        receiver: usersById.get(item.receiver.id) ?? item.receiver,
+      })),
       meta: buildPaginationMeta(total, pagination.page, pagination.limit),
     };
   }
@@ -167,6 +184,7 @@ export class FriendsService {
               updatedAt: true,
               email: true,
               username: true,
+              avatarUrl: true,
             },
           },
         },
@@ -174,14 +192,27 @@ export class FriendsService {
       this.prismaService.friendship.count({ where: { userId } }),
     ]);
 
+    const friends = await this.usersService.addMutualFriendsCount(
+      userId,
+      items.map((item) => item.friend),
+    );
+    const friendsById = new Map(friends.map((friend) => [friend.id, friend]));
+
     return {
-      items,
+      items: items.map((item) => ({
+        ...item,
+        friend: friendsById.get(item.friend.id) ?? item.friend,
+      })),
       meta: buildPaginationMeta(total, pagination.page, pagination.limit),
     };
   }
 
   listUsersToFriend(userId: string, pagination: PaginationResult) {
     return this.usersService.listNonFriends(userId, pagination);
+  }
+
+  listPossibleFriends(userId: string, pagination: PaginationResult) {
+    return this.usersService.listPossibleFriends(userId, pagination);
   }
 
   async acceptRequest(userId: string, requestId: string) {

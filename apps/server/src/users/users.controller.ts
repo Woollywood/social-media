@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Request, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -8,6 +8,7 @@ import {
 } from '@nestjs/swagger';
 
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
+import { type RequestWithUser } from '../auth/types/request-with-user';
 import { PaginationQueryDto } from '../dto/pagination/pagination-query.dto';
 import { normalizePagination } from '../utils';
 
@@ -25,8 +26,8 @@ export class UsersController {
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
   @Get()
-  list(@Query() query: PaginationQueryDto) {
+  list(@Request() req: RequestWithUser, @Query() query: PaginationQueryDto) {
     const pagination = normalizePagination(query);
-    return this.usersService.list(pagination);
+    return this.usersService.list(req.user.id, pagination);
   }
 }

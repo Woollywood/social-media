@@ -1,7 +1,9 @@
+import { AvatarImage } from '@radix-ui/react-avatar'
 import { UserPlus } from 'lucide-react'
 import React from 'react'
 import { Link, Outlet } from 'react-router'
 
+import { useFriendsControllerListPossibleFriends } from '@/api/generated'
 import {
   Panel,
   PanelContent,
@@ -24,6 +26,10 @@ type LinkProp = {
 }
 
 export const FriendsLayout: React.FC = () => {
+  const { data: possible } = useFriendsControllerListPossibleFriends({
+    limit: 6,
+  })
+
   const links: LinkProp[] = [
     { label: 'Мои друзья', path: paths.friends },
     { label: 'Заявки в друзья', path: paths['friend-requests'] },
@@ -63,67 +69,60 @@ export const FriendsLayout: React.FC = () => {
             </PanelContent>
           </Panel>
 
-          <Panel tone="soft">
-            <PanelHeader className="pb-0 pt-4">
-              <PanelTitle className="text-sm font-semibold">
-                Возможные друзья
-              </PanelTitle>
-            </PanelHeader>
-            <PanelContent className="mt-3 space-y-3 pb-4 text-sm">
-              {[
-                {
-                  name: 'Анастасия Соколова',
-                  initials: 'АС',
-                  mutual: 12,
-                },
-                {
-                  name: 'Илья Марков',
-                  initials: 'ИМ',
-                  mutual: 6,
-                },
-                {
-                  name: 'Мария Чернова',
-                  initials: 'МЧ',
-                  mutual: 3,
-                },
-                {
-                  name: 'Павел Дроздов',
-                  initials: 'ПД',
-                  mutual: 9,
-                },
-              ].map((person) => (
-                <UserCard
-                  key={person.name}
-                  size="sm"
-                  variant="soft"
-                  hover="none"
-                  className="gap-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <Avatar className="size-9">
-                      <AvatarFallback className="text-xs font-semibold">
-                        {person.initials}
-                      </AvatarFallback>
-                    </Avatar>
-                    <UserCardInfo>
-                      <UserCardTitle>{person.name}</UserCardTitle>
-                      <UserCardSubtitle>
-                        Общих друзей: {person.mutual}
-                      </UserCardSubtitle>
-                    </UserCardInfo>
-                  </div>
-                  <Button
-                    size="icon-xs"
-                    variant="outline"
-                    type="button"
-                    className="shrink-0"
-                  >
-                    <UserPlus className="size-3.5" />
-                  </Button>
-                </UserCard>
-              ))}
-            </PanelContent>
-          </Panel>
+          {!!possible?.items.length && (
+            <Panel tone="soft">
+              <PanelHeader className="pb-0 pt-4">
+                <PanelTitle className="text-sm font-semibold">
+                  Возможные друзья
+                </PanelTitle>
+              </PanelHeader>
+              <PanelContent className="mt-3 space-y-3 pb-4 text-sm">
+                {possible.items.map(
+                  ({
+                    id,
+                    avatarUrl,
+                    username,
+                    mutualFriendsCount,
+                  }) => (
+                    <UserCard
+                      key={id}
+                      size="sm"
+                      variant="soft"
+                      hover="none"
+                      className="gap-3"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Avatar className="size-9">
+                          {avatarUrl && (
+                            <AvatarImage src={avatarUrl} />
+                          )}
+                          <AvatarFallback className="text-xs font-semibold">
+                            {username[0].toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <UserCardInfo>
+                          <UserCardTitle>{username}</UserCardTitle>
+                          {!!mutualFriendsCount && (
+                            <UserCardSubtitle>
+                              Общих друзей: {mutualFriendsCount}
+                            </UserCardSubtitle>
+                          )}
+                        </UserCardInfo>
+                      </div>
+                      <Button
+                        size="icon-xs"
+                        variant="outline"
+                        type="button"
+                        className="shrink-0"
+                      >
+                        <UserPlus className="size-3.5" />
+                      </Button>
+                    </UserCard>
+                  )
+                )}
+              </PanelContent>
+            </Panel>
+          )}
         </aside>
       </div>
     </div>

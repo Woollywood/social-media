@@ -70,6 +70,12 @@ export type {
   FriendsControllerListFriendsQuery,
 } from './friendsController/FriendsControllerListFriends.ts'
 export type {
+  FriendsControllerListPossibleFriendsQueryParams,
+  FriendsControllerListPossibleFriends200,
+  FriendsControllerListPossibleFriendsQueryResponse,
+  FriendsControllerListPossibleFriendsQuery,
+} from './friendsController/FriendsControllerListPossibleFriends.ts'
+export type {
   FriendsControllerListRequestsQueryParams,
   FriendsControllerListRequests200,
   FriendsControllerListRequestsQueryResponse,

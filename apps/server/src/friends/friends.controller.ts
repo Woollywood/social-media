@@ -135,4 +135,16 @@ export class FriendsController {
     const pagination = normalizePagination(query);
     return this.friendsService.listUsersToFriend(req.user.id, pagination);
   }
+
+  @ApiOperation({ summary: 'List possible friends.' })
+  @ApiQuery({ type: PaginationQueryDto })
+  @ApiResponse({ status: 200, type: UsersListDto })
+  @Get('possible')
+  listPossibleFriends(
+    @Request() req: RequestWithUser,
+    @Query() query: PaginationQueryDto,
+  ) {
+    const pagination = normalizePagination(query);
+    return this.friendsService.listPossibleFriends(req.user.id, pagination);
+  }
 }

@@ -1,4 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsInt, IsOptional, Min } from 'class-validator';
 
 export class UserDto {
   @ApiProperty({
@@ -28,4 +30,14 @@ export class UserDto {
     nullable: true,
   })
   avatarUrl: string | null;
+
+  @ApiPropertyOptional({
+    type: 'number',
+    description: 'Count of mutual friends with current user.',
+  })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  mutualFriendsCount?: number;
 }

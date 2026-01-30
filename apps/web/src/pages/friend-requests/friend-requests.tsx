@@ -58,8 +58,9 @@ export const Component = createRoute({
             </UserCard>
           ))}
         {items.map((item) => {
-          const user = item.requester ?? item.receiver
-          const title = user?.username ?? 'Пользователь'
+          const user = item.receiver
+          const title = user?.username ?? 'Неизвестный пользователь'
+
           return (
             <UserCard key={item.id} variant="plain" align="start">
               <Avatar className="size-12">

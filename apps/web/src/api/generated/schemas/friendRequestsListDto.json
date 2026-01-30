@@ -38,7 +38,11 @@
               },
               "email": { "type": "string" },
               "username": { "type": "string" },
-              "avatarUrl": { "type": "string", "nullable": true }
+              "avatarUrl": { "type": "string", "nullable": true },
+              "mutualFriendsCount": {
+                "type": "number",
+                "description": "Count of mutual friends with current user."
+              }
             },
             "required": [
               "id",
@@ -64,7 +68,11 @@
               },
               "email": { "type": "string" },
               "username": { "type": "string" },
-              "avatarUrl": { "type": "string", "nullable": true }
+              "avatarUrl": { "type": "string", "nullable": true },
+              "mutualFriendsCount": {
+                "type": "number",
+                "description": "Count of mutual friends with current user."
+              }
             },
             "required": [
               "id",

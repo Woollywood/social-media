@@ -34,4 +34,9 @@ export type UserDto = {
    * @type string
    */
   avatarUrl: string | null
+  /**
+   * @description Count of mutual friends with current user.
+   * @type number | undefined
+   */
+  mutualFriendsCount?: number | undefined
 }
