@@ -10,6 +10,7 @@ export { friendsControllerDeclineRequest } from './friendsService/friendsControl
 export { friendsControllerListFriends } from './friendsService/friendsControllerListFriends.ts'
 export { friendsControllerListPossibleFriends } from './friendsService/friendsControllerListPossibleFriends.ts'
 export { friendsControllerListRequests } from './friendsService/friendsControllerListRequests.ts'
+export { friendsControllerRemoveFriend } from './friendsService/friendsControllerRemoveFriend.ts'
 export { friendsControllerSearchUsers } from './friendsService/friendsControllerSearchUsers.ts'
 export { friendsControllerSendRequest } from './friendsService/friendsControllerSendRequest.ts'
 export { friendsService } from './friendsService/friendsService.ts'

@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 
 import { NotificationsGateway } from '../notifications/notifications.gateway';
+import { WS_EVENTS } from '../notifications/ws-events';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
 import { buildPaginationMeta, type PaginationResult } from '../utils';
@@ -25,6 +26,11 @@ export class FriendsService {
   async sendRequest(requesterId: string, receiverId: string) {
     if (requesterId === receiverId) {
       throw new BadRequestException('Cannot send friend request to yourself.');
+    }
+
+    const requester = await this.usersService.findPublicById(requesterId);
+    if (!requester) {
+      throw new NotFoundException('Requester not found.');
     }
 
     const receiver = await this.usersService.findById(receiverId);
@@ -76,18 +82,23 @@ export class FriendsService {
         data: {
           recipientId: receiverId,
           type: 'FRIEND_REQUEST',
-          payload: { requestId: request.id, requesterId },
+          payload: { requestId: request.id, requesterId, sender: requester },
         },
       });
 
-      this.notificationsGateway.emitToUser(receiverId, 'notifications:new', {
-        type: 'FRIEND_REQUEST',
-        requestId: request.id,
-        requesterId,
-      });
       this.notificationsGateway.emitToUser(
         receiverId,
-        'friends:request:created',
+        WS_EVENTS.notifications.new,
+        {
+          type: 'FRIEND_REQUEST',
+          requestId: request.id,
+          requesterId,
+          sender: requester,
+        },
+      );
+      this.notificationsGateway.emitToUser(
+        receiverId,
+        WS_EVENTS.friends.requestCreated,
         {
           requestId: request.id,
           requesterId,
@@ -215,6 +226,84 @@ export class FriendsService {
     return this.usersService.listPossibleFriends(userId, pagination);
   }
 
+  async removeFriend(userId: string, friendId: string) {
+    if (userId === friendId) {
+      throw new BadRequestException('Cannot remove yourself from friends.');
+    }
+
+    const remover = await this.usersService.findPublicById(userId);
+    if (!remover) {
+      throw new NotFoundException('User not found.');
+    }
+
+    const existing = await this.prismaService.friendship.findFirst({
+      where: {
+        OR: [
+          { userId, friendId },
+          { userId: friendId, friendId: userId },
+        ],
+      },
+      select: { id: true },
+    });
+    if (!existing) {
+      throw new NotFoundException('Friendship not found.');
+    }
+
+    await this.prismaService.friendship.deleteMany({
+      where: {
+        OR: [
+          { userId, friendId },
+          { userId: friendId, friendId: userId },
+        ],
+      },
+    });
+
+    const pendingRequest = await this.prismaService.friendRequest.findFirst({
+      where: {
+        status: FriendRequestStatus.Pending,
+        OR: [
+          { requesterId: userId, receiverId: friendId },
+          { requesterId: friendId, receiverId: userId },
+        ],
+      },
+      select: { id: true },
+    });
+    if (!pendingRequest) {
+      await this.prismaService.friendRequest.create({
+        data: {
+          requesterId: friendId,
+          receiverId: userId,
+          status: FriendRequestStatus.Pending,
+        },
+      });
+    }
+
+    const notification = await this.prismaService.notification.create({
+      data: {
+        recipientId: friendId,
+        type: 'FRIEND_REMOVED',
+        payload: { removedBy: userId, sender: remover },
+      },
+    });
+
+    this.notificationsGateway.emitToUser(
+      friendId,
+      WS_EVENTS.notifications.new,
+      {
+        id: notification.id,
+        type: notification.type,
+        payload: notification.payload,
+        sender: remover,
+        friendId: userId,
+      },
+    );
+    this.notificationsGateway.emitToUser(friendId, WS_EVENTS.friends.updated, {
+      friendId: userId,
+    });
+
+    return { success: true };
+  }
+
   async acceptRequest(userId: string, requestId: string) {
     const request = await this.prismaService.friendRequest.findUnique({
       where: { id: requestId },
@@ -227,6 +316,11 @@ export class FriendsService {
     }
     if (request.status !== FriendRequestStatus.Pending) {
       throw new ConflictException('Friend request is not pending.');
+    }
+
+    const receiver = await this.usersService.findPublicById(userId);
+    if (!receiver) {
+      throw new NotFoundException('User not found.');
     }
 
     return this.prismaService.$transaction(async (tx) => {
@@ -258,22 +352,27 @@ export class FriendsService {
         data: {
           recipientId: request.requesterId,
           type: 'FRIEND_ACCEPT',
-          payload: { requestId: request.id, friendId: request.receiverId },
+          payload: {
+            requestId: request.id,
+            friendId: request.receiverId,
+            sender: receiver,
+          },
         },
       });
 
       this.notificationsGateway.emitToUser(
         request.requesterId,
-        'notifications:new',
+        WS_EVENTS.notifications.new,
         {
           type: 'FRIEND_ACCEPT',
           requestId: request.id,
           friendId: request.receiverId,
+          sender: receiver,
         },
       );
       this.notificationsGateway.emitToUser(
         request.requesterId,
-        'friends:request:accepted',
+        WS_EVENTS.friends.requestAccepted,
         {
           requestId: request.id,
           friendId: request.receiverId,
@@ -281,7 +380,7 @@ export class FriendsService {
       );
       this.notificationsGateway.emitToUser(
         request.receiverId,
-        'friends:request:accepted',
+        WS_EVENTS.friends.requestAccepted,
         {
           requestId: request.id,
           friendId: request.requesterId,
@@ -289,12 +388,12 @@ export class FriendsService {
       );
       this.notificationsGateway.emitToUser(
         request.requesterId,
-        'friends:updated',
+        WS_EVENTS.friends.updated,
         { friendId: request.receiverId },
       );
       this.notificationsGateway.emitToUser(
         request.receiverId,
-        'friends:updated',
+        WS_EVENTS.friends.updated,
         { friendId: request.requesterId },
       );
 
@@ -316,6 +415,11 @@ export class FriendsService {
       throw new ConflictException('Friend request is not pending.');
     }
 
+    const receiver = await this.usersService.findPublicById(userId);
+    if (!receiver) {
+      throw new NotFoundException('User not found.');
+    }
+
     return this.prismaService.$transaction(async (tx) => {
       const updated = await tx.friendRequest.update({
         where: { id: requestId },
@@ -329,22 +433,27 @@ export class FriendsService {
         data: {
           recipientId: request.requesterId,
           type: 'FRIEND_DECLINE',
-          payload: { requestId: request.id, friendId: request.receiverId },
+          payload: {
+            requestId: request.id,
+            friendId: request.receiverId,
+            sender: receiver,
+          },
         },
       });
 
       this.notificationsGateway.emitToUser(
         request.requesterId,
-        'notifications:new',
+        WS_EVENTS.notifications.new,
         {
           type: 'FRIEND_DECLINE',
           requestId: request.id,
           friendId: request.receiverId,
+          sender: receiver,
         },
       );
       this.notificationsGateway.emitToUser(
         request.requesterId,
-        'friends:request:declined',
+        WS_EVENTS.friends.requestDeclined,
         {
           requestId: request.id,
           friendId: request.receiverId,
@@ -377,9 +486,37 @@ export class FriendsService {
       },
     });
 
+    const requester = await this.usersService.findPublicById(userId);
+    if (!requester) {
+      throw new NotFoundException('User not found.');
+    }
+
+    await this.prismaService.notification.create({
+      data: {
+        recipientId: request.receiverId,
+        type: 'FRIEND_REQUEST_CANCELLED',
+        payload: {
+          requestId: request.id,
+          requesterId: request.requesterId,
+          sender: requester,
+        },
+      },
+    });
+
     this.notificationsGateway.emitToUser(
       request.receiverId,
-      'friends:request:cancelled',
+      WS_EVENTS.notifications.new,
+      {
+        type: 'FRIEND_REQUEST_CANCELLED',
+        requestId: request.id,
+        requesterId: request.requesterId,
+        sender: requester,
+      },
+    );
+
+    this.notificationsGateway.emitToUser(
+      request.receiverId,
+      WS_EVENTS.friends.requestCancelled,
       {
         requestId: request.id,
         requesterId: request.requesterId,

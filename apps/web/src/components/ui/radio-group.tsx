@@ -6,10 +6,11 @@ import * as React from 'react'
 
 import { cn } from '@/utils/helpers/shadcn/utils'
 
-function RadioGroup({
-  className,
-  ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
+export type IRadioGroupProps = React.ComponentProps<
+  typeof RadioGroupPrimitive.Root
+>
+
+function RadioGroup({ className, ...props }: IRadioGroupProps) {
   return (
     <RadioGroupPrimitive.Root
       data-slot="radio-group"

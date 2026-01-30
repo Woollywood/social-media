@@ -1,5 +1,8 @@
+import { useQueryClient } from '@tanstack/react-query'
+
 import {
   friendRequestDirectionEnum,
+  friendsControllerListRequestsSuspenseInfiniteQueryOptions,
   useFriendsControllerAcceptRequest,
   useFriendsControllerDeclineRequest,
   useFriendsControllerListRequestsSuspenseInfinite,
@@ -22,12 +25,30 @@ import { createRoute } from '@/hocs/create-route'
 
 export const Component = createRoute({
   Component: () => {
+    const queryClient = useQueryClient()
+
+    const invalidate = () => {
+      queryClient.invalidateQueries(
+        friendsControllerListRequestsSuspenseInfiniteQueryOptions({
+          direction: friendRequestDirectionEnum.in,
+        })
+      )
+    }
+
     const { mutateAsync: acceptRequest, isPending: isPendingAccept } =
-      useFriendsControllerAcceptRequest()
+      useFriendsControllerAcceptRequest({
+        mutation: {
+          onSuccess: invalidate,
+        },
+      })
     const {
       mutateAsync: declineRequest,
       isPending: isPendingDecline,
-    } = useFriendsControllerDeclineRequest()
+    } = useFriendsControllerDeclineRequest({
+      mutation: {
+        onSuccess: invalidate,
+      },
+    })
 
     const { data, isPending: isPendingList } =
       useFriendsControllerListRequestsSuspenseInfinite({
@@ -58,7 +79,7 @@ export const Component = createRoute({
             </UserCard>
           ))}
         {items.map((item) => {
-          const user = item.receiver
+          const user = item.requester
           const title = user?.username ?? 'Неизвестный пользователь'
 
           return (

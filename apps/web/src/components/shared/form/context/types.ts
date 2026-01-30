@@ -1,4 +1,4 @@
-import type { FieldPath, FieldValues } from 'react-hook-form'
+import { type FieldPath, type FieldValues } from 'react-hook-form'
 
 export type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,

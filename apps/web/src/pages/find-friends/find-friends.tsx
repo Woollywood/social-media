@@ -1,6 +1,8 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { Plus, X } from 'lucide-react'
 
 import {
+  friendsControllerSearchUsersSuspenseInfiniteQueryOptions,
   useFriendsControllerSearchUsersSuspenseInfinite,
   useFriendsControllerSendRequest,
 } from '@/api/generated'
@@ -16,8 +18,18 @@ import { createRoute } from '@/hocs/create-route'
 
 export const Component = createRoute({
   Component: () => {
+    const queryClient = useQueryClient()
+
+    const invalidate = () => {
+      queryClient.invalidateQueries(
+        friendsControllerSearchUsersSuspenseInfiniteQueryOptions()
+      )
+    }
+
     const { mutateAsync: sendRequest, isPending } =
-      useFriendsControllerSendRequest()
+      useFriendsControllerSendRequest({
+        mutation: { onSuccess: invalidate },
+      })
 
     const { data: users, isPending: isPendingList } =
       useFriendsControllerSearchUsersSuspenseInfinite()

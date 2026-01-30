@@ -82,6 +82,12 @@ export type {
   FriendsControllerListRequestsQuery,
 } from './friendsController/FriendsControllerListRequests.ts'
 export type {
+  FriendsControllerRemoveFriendPathParams,
+  FriendsControllerRemoveFriend200,
+  FriendsControllerRemoveFriendMutationResponse,
+  FriendsControllerRemoveFriendMutation,
+} from './friendsController/FriendsControllerRemoveFriend.ts'
+export type {
   FriendsControllerSearchUsersQueryParams,
   FriendsControllerSearchUsers200,
   FriendsControllerSearchUsersQueryResponse,

@@ -17,6 +17,7 @@ export type { FriendsControllerListPossibleFriendsSuspenseInfiniteQueryKey } fro
 export type { FriendsControllerListRequestsQueryKey } from './hooks/friendsHooks/useFriendsControllerListRequests.ts'
 export type { FriendsControllerListRequestsSuspenseQueryKey } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspense.ts'
 export type { FriendsControllerListRequestsSuspenseInfiniteQueryKey } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspenseInfinite.ts'
+export type { FriendsControllerRemoveFriendMutationKey } from './hooks/friendsHooks/useFriendsControllerRemoveFriend.ts'
 export type { FriendsControllerSearchUsersQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsers.ts'
 export type { FriendsControllerSearchUsersSuspenseQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspense.ts'
 export type { FriendsControllerSearchUsersSuspenseInfiniteQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspenseInfinite.ts'
@@ -113,6 +114,12 @@ export type {
   FriendsControllerListRequestsQuery,
 } from './types/friendsController/FriendsControllerListRequests.ts'
 export type {
+  FriendsControllerRemoveFriendPathParams,
+  FriendsControllerRemoveFriend200,
+  FriendsControllerRemoveFriendMutationResponse,
+  FriendsControllerRemoveFriendMutation,
+} from './types/friendsController/FriendsControllerRemoveFriend.ts'
+export type {
   FriendsControllerSearchUsersQueryParams,
   FriendsControllerSearchUsers200,
   FriendsControllerSearchUsersQueryResponse,
@@ -175,6 +182,7 @@ export { friendsControllerDeclineRequest } from './clients/axios/friendsService/
 export { friendsControllerListFriends } from './clients/axios/friendsService/friendsControllerListFriends.ts'
 export { friendsControllerListPossibleFriends } from './clients/axios/friendsService/friendsControllerListPossibleFriends.ts'
 export { friendsControllerListRequests } from './clients/axios/friendsService/friendsControllerListRequests.ts'
+export { friendsControllerRemoveFriend } from './clients/axios/friendsService/friendsControllerRemoveFriend.ts'
 export { friendsControllerSearchUsers } from './clients/axios/friendsService/friendsControllerSearchUsers.ts'
 export { friendsControllerSendRequest } from './clients/axios/friendsService/friendsControllerSendRequest.ts'
 export { friendsService } from './clients/axios/friendsService/friendsService.ts'
@@ -242,6 +250,9 @@ export { useFriendsControllerListRequestsSuspense } from './hooks/friendsHooks/u
 export { friendsControllerListRequestsSuspenseInfiniteQueryKey } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspenseInfinite.ts'
 export { friendsControllerListRequestsSuspenseInfiniteQueryOptions } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspenseInfinite.ts'
 export { useFriendsControllerListRequestsSuspenseInfinite } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspenseInfinite.ts'
+export { friendsControllerRemoveFriendMutationKey } from './hooks/friendsHooks/useFriendsControllerRemoveFriend.ts'
+export { friendsControllerRemoveFriendMutationOptions } from './hooks/friendsHooks/useFriendsControllerRemoveFriend.ts'
+export { useFriendsControllerRemoveFriend } from './hooks/friendsHooks/useFriendsControllerRemoveFriend.ts'
 export { friendsControllerSearchUsersQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsers.ts'
 export { friendsControllerSearchUsersQueryOptions } from './hooks/friendsHooks/useFriendsControllerSearchUsers.ts'
 export { useFriendsControllerSearchUsers } from './hooks/friendsHooks/useFriendsControllerSearchUsers.ts'

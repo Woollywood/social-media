@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsJWT } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 
 export class RefreshTokenDto {
   @ApiProperty({
     description: 'Refresh token issued during login or refresh.',
   })
-  @IsJWT()
+  @IsString()
+  @MinLength(16)
   refreshToken: string;
 }

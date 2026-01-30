@@ -66,6 +66,10 @@ export const operations = {
     path: '/api/v1/friends/possible',
     method: 'get',
   },
+  FriendsController_removeFriend: {
+    path: '/api/v1/friends/:id',
+    method: 'delete',
+  },
   NotificationsController_list: {
     path: '/api/v1/notifications',
     method: 'get',

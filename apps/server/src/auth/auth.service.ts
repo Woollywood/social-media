@@ -14,7 +14,7 @@ import { type TokenType } from './types/token-type';
 import { comparePasswordHash } from './utils/compare-password-hash';
 import { hashPassword } from './utils/hash-password';
 
-const ACCESS_TOKEN_TTL_SECONDS = 15 * 60;
+const ACCESS_TOKEN_TTL_SECONDS = 60 * 60;
 const REFRESH_TOKEN_TTL_SECONDS = 30 * 24 * 60 * 60;
 
 @Injectable()

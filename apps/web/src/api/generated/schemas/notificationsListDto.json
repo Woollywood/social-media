@@ -21,7 +21,9 @@
             "enum": [
               "FRIEND_REQUEST",
               "FRIEND_ACCEPT",
-              "FRIEND_DECLINE"
+              "FRIEND_DECLINE",
+              "FRIEND_REQUEST_CANCELLED",
+              "FRIEND_REMOVED"
             ]
           },
           "payload": {

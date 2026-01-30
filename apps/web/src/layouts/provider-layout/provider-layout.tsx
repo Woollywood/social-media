@@ -7,6 +7,8 @@ import { AxiosError } from 'axios'
 import React from 'react'
 import { Outlet } from 'react-router'
 
+import { Toaster } from '@/components/ui/sonner'
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -26,6 +28,7 @@ export const ProviderLayout: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <ReactQueryDevtools initialIsOpen={false} />
+      <Toaster />
     </QueryClientProvider>
   )
 }

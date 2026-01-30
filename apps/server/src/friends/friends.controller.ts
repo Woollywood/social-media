@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -146,5 +147,16 @@ export class FriendsController {
   ) {
     const pagination = normalizePagination(query);
     return this.friendsService.listPossibleFriends(req.user.id, pagination);
+  }
+
+  @ApiOperation({ summary: 'Remove a friend.' })
+  @ApiParam({ name: 'id', format: 'uuid' })
+  @ApiResponse({ status: 200 })
+  @Delete(':id')
+  removeFriend(
+    @Request() req: RequestWithUser,
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ) {
+    return this.friendsService.removeFriend(req.user.id, id);
   }
 }

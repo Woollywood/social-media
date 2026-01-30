@@ -8,6 +8,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { buildPaginationMeta, type PaginationResult } from '../utils';
 
 import { NotificationsGateway } from './notifications.gateway';
+import { WS_EVENTS } from './ws-events';
 
 @Injectable()
 export class NotificationsService {
@@ -59,7 +60,7 @@ export class NotificationsService {
       data: { readAt: new Date() },
     });
 
-    this.notificationsGateway.emitToUser(userId, 'notifications:read', {
+    this.notificationsGateway.emitToUser(userId, WS_EVENTS.notifications.read, {
       id: notificationId,
     });
 
@@ -72,9 +73,13 @@ export class NotificationsService {
       data: { readAt: new Date() },
     });
 
-    this.notificationsGateway.emitToUser(userId, 'notifications:read-all', {
-      updated: result.count,
-    });
+    this.notificationsGateway.emitToUser(
+      userId,
+      WS_EVENTS.notifications.readAll,
+      {
+        updated: result.count,
+      },
+    );
 
     return { success: true, updated: result.count };
   }

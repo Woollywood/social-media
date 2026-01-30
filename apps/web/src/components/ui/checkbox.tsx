@@ -6,10 +6,11 @@ import * as React from 'react'
 
 import { cn } from '@/utils/helpers/shadcn/utils'
 
-function Checkbox({
-  className,
-  ...props
-}: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+export type ICheckboxProps = React.ComponentProps<
+  typeof CheckboxPrimitive.Root
+>
+
+function Checkbox({ className, ...props }: ICheckboxProps) {
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"

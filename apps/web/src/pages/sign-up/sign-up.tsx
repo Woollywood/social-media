@@ -50,6 +50,7 @@ export const Component = createRoute({
             <div className="space-y-2">
               <Label htmlFor="register-email">Почта</Label>
               <Input
+                disabled
                 id="register-email"
                 type="email"
                 placeholder="name@example.com"
@@ -59,6 +60,7 @@ export const Component = createRoute({
             <div className="space-y-2">
               <Label htmlFor="register-password">Пароль</Label>
               <Input
+                disabled
                 id="register-password"
                 type="password"
                 placeholder="Придумайте пароль"
@@ -70,6 +72,7 @@ export const Component = createRoute({
                 Повторите пароль
               </Label>
               <Input
+                disabled
                 id="register-confirm"
                 type="password"
                 placeholder="Повторите пароль"

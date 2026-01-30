@@ -1,6 +1,15 @@
-import { MessageCircle, MoreHorizontal } from 'lucide-react'
+import { useQueryClient } from '@tanstack/react-query'
+import {
+  DeleteIcon,
+  MessageCircle,
+  MoreHorizontal,
+} from 'lucide-react'
 
-import { useFriendsControllerListFriendsSuspenseInfinite } from '@/api/generated'
+import {
+  friendsControllerListFriendsSuspenseInfiniteQueryOptions,
+  useFriendsControllerListFriendsSuspenseInfinite,
+  useFriendsControllerRemoveFriend,
+} from '@/api/generated'
 import {
   UserCard,
   UserCardActions,
@@ -18,8 +27,19 @@ import { createRoute } from '@/hocs/create-route'
 
 export const Component = createRoute({
   Component: () => {
+    const queryClient = useQueryClient()
     const { data: friends, isPending } =
       useFriendsControllerListFriendsSuspenseInfinite()
+    const { mutateAsync: deleteFriend } =
+      useFriendsControllerRemoveFriend({
+        mutation: {
+          onSuccess: () => {
+            queryClient.invalidateQueries(
+              friendsControllerListFriendsSuspenseInfiniteQueryOptions()
+            )
+          },
+        },
+      })
 
     const items =
       friends?.pages?.flatMap((page) => page.items ?? []) ?? []
@@ -65,6 +85,18 @@ export const Component = createRoute({
                   >
                     <MessageCircle className="size-4" />
                     Написать сообщение
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-2 rounded-full"
+                    type="button"
+                    onClick={() =>
+                      deleteFriend({ id: item.friend.id })
+                    }
+                  >
+                    <DeleteIcon className="size-4" />
+                    Удалить из друзей
                   </Button>
                 </UserCardActions>
               </UserCardInfo>

@@ -1,5 +1,8 @@
+import { useQueryClient } from '@tanstack/react-query'
+
 import {
   friendRequestDirectionEnum,
+  friendsControllerListRequestsSuspenseInfiniteQueryOptions,
   useFriendsControllerCancelRequest,
   useFriendsControllerListRequestsSuspenseInfinite,
 } from '@/api/generated'
@@ -21,10 +24,24 @@ import { createRoute } from '@/hocs/create-route'
 
 export const Component = createRoute({
   Component: () => {
+    const queryClient = useQueryClient()
+
+    const invalidate = () => {
+      queryClient.invalidateQueries(
+        friendsControllerListRequestsSuspenseInfiniteQueryOptions({
+          direction: friendRequestDirectionEnum.out,
+        })
+      )
+    }
+
     const {
       mutateAsync: cancelRequest,
       isPending: isPendingCancellation,
-    } = useFriendsControllerCancelRequest()
+    } = useFriendsControllerCancelRequest({
+      mutation: {
+        onSuccess: invalidate,
+      },
+    })
 
     const { data, isPending: isPendingList } =
       useFriendsControllerListRequestsSuspenseInfinite({

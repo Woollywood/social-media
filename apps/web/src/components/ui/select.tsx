@@ -8,9 +8,11 @@ import * as React from 'react'
 
 import { cn } from '@/utils/helpers/shadcn/utils'
 
-function Select({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Root>) {
+export type ISelectProps = React.ComponentProps<
+  typeof SelectPrimitive.Root
+>
+
+function Select({ ...props }: ISelectProps) {
   return <SelectPrimitive.Root data-slot="select" {...props} />
 }
 
