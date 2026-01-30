@@ -62,7 +62,7 @@ export function friendsControllerListFriendsSuspenseInfiniteQueryOptions(
       } as FriendsControllerListFriendsQueryParams
       return friendsControllerListFriends(params, config)
     },
-    initialPageParam: 1,
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage['nextCursor'],
     getPreviousPageParam: (firstPage) => firstPage['nextCursor'],
   })

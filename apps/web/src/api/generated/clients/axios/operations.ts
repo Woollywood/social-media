@@ -58,6 +58,10 @@ export const operations = {
     path: '/api/v1/friends',
     method: 'get',
   },
+  FriendsController_searchUsers: {
+    path: '/api/v1/friends/search',
+    method: 'get',
+  },
   NotificationsController_list: {
     path: '/api/v1/notifications',
     method: 'get',

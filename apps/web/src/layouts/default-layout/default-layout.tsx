@@ -3,14 +3,16 @@ import {
   Bookmark,
   Calendar,
   Home,
+  type LucideProps,
   MessageCircle,
   Settings,
   User,
   Users,
 } from 'lucide-react'
-import React from 'react'
-import { Outlet } from 'react-router'
+import React, { type FunctionComponent } from 'react'
+import { Link, Outlet } from 'react-router'
 
+import { Link as TypedLink } from '@/components/shared/link'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -18,15 +20,33 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { paths } from '@/router'
 
 import { Header } from './components/header'
 
+type LinkProp = {
+  label: string
+  Icon: FunctionComponent<LucideProps>
+  path: string
+}
+
 export const DefaultLayout: React.FC = () => {
+  const links: LinkProp[] = [
+    { label: 'Лента', Icon: Home, path: paths.home },
+    { label: 'Сообщения', Icon: MessageCircle, path: paths.home },
+    { label: 'Уведомления', Icon: Bell, path: paths.home },
+    { label: 'Друзья', Icon: User, path: paths.friends },
+    { label: 'Сообщества', Icon: Users, path: paths.home },
+    { label: 'События', Icon: Calendar, path: paths.home },
+    { label: 'Сохраненное', Icon: Bookmark, path: paths.home },
+    { label: 'Настройки', Icon: Settings, path: paths.home },
+  ]
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <div className="mx-auto flex min-h-screen w-full max-w-7xl gap-6 px-4 pb-6 pt-24">
-        <aside className="hidden w-64 shrink-0 flex-col gap-4 lg:flex">
+        <aside className="sticky top-24 hidden h-fit w-64 shrink-0 flex-col gap-4 lg:flex">
           <Card className="gap-0 py-0">
             <CardHeader className="pb-0 pt-4">
               <CardTitle className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -34,24 +54,18 @@ export const DefaultLayout: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="mt-2 flex flex-col gap-2 pb-4">
-              {[
-                { label: 'Лента', icon: Home },
-                { label: 'Сообщения', icon: MessageCircle },
-                { label: 'Уведомления', icon: Bell },
-                { label: 'Друзья', icon: User },
-                { label: 'Сообщества', icon: Users },
-                { label: 'События', icon: Calendar },
-                { label: 'Сохраненное', icon: Bookmark },
-                { label: 'Настройки', icon: Settings },
-              ].map(({ label, icon: Icon }) => (
+              {links.map(({ label, Icon, path }) => (
                 <Button
+                  asChild
                   key={label}
                   variant="ghost"
                   className="w-full justify-between rounded-xl border border-transparent px-3 py-2 text-left hover:border-border"
                   type="button"
                 >
-                  <span>{label}</span>
-                  <Icon className="size-4 text-muted-foreground" />
+                  <Link to={path}>
+                    <span>{label}</span>
+                    <Icon className="size-4 text-muted-foreground" />
+                  </Link>
                 </Button>
               ))}
             </CardContent>
@@ -68,70 +82,19 @@ export const DefaultLayout: React.FC = () => {
                 Создать пост
               </Button>
               <Button
+                asChild
                 variant="outline"
                 className="w-full rounded-xl"
                 type="button"
               >
-                Найти друзей
+                <TypedLink to={{ path: paths['find-friends'] }}>
+                  Найти друзей
+                </TypedLink>
               </Button>
             </CardContent>
           </Card>
         </aside>
-
         <Outlet />
-
-        <aside className="hidden w-72 shrink-0 flex-col gap-4 xl:flex">
-          <Card className="gap-0 py-0">
-            <CardHeader className="pb-0 pt-4">
-              <CardTitle className="text-sm font-semibold">
-                Сегодня
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="mt-3 space-y-3 pb-4 text-sm">
-              {[
-                'Подборка друзей по интересам',
-                'Обновления в любимых сообществах',
-                'Напоминание о событии',
-              ].map((item) => (
-                <Card key={item} className="gap-0 py-0">
-                  <CardContent className="px-3 py-2">
-                    {item}
-                  </CardContent>
-                </Card>
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card className="gap-0 py-0">
-            <CardHeader className="pb-0 pt-4">
-              <CardTitle className="text-sm font-semibold">
-                Рекомендации
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="mt-3 flex flex-col gap-2 pb-4 text-sm text-muted-foreground">
-              {['UX/UI дизайн', 'Фотография', 'Бег и здоровье'].map(
-                (tag) => (
-                  <Button
-                    key={tag}
-                    type="button"
-                    variant="outline"
-                    className="justify-between rounded-xl text-left"
-                  >
-                    <span>{tag}</span>
-                    <span className="text-xs">+</span>
-                  </Button>
-                )
-              )}
-            </CardContent>
-          </Card>
-
-          <Card className="gap-0 py-0">
-            <CardContent className="py-4 text-sm text-muted-foreground">
-              Настройте приватность, чтобы управлять тем, кто видит
-              ваши публикации и контакты.
-            </CardContent>
-          </Card>
-        </aside>
       </div>
     </div>
   )

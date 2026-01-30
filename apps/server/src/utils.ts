@@ -32,11 +32,12 @@ export type PaginationMeta = {
   pages: number;
 };
 
-const DEFAULT_PAGE = 1;
+const MIN_PAGE = 0;
+const DEFAULT_PAGE = MIN_PAGE;
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 100;
 
-const toPositiveInt = (
+const toNonNegativeInt = (
   value: number | string | undefined,
   fallback: number,
 ) => {
@@ -50,18 +51,18 @@ const toPositiveInt = (
   }
 
   const intValue = Math.floor(parsed);
-  return intValue > 0 ? intValue : fallback;
+  return intValue >= 0 ? intValue : fallback;
 };
 
 export const normalizePagination = (
   params: PaginationParams,
 ): PaginationResult => {
-  const page = toPositiveInt(params.page, DEFAULT_PAGE);
+  const page = toNonNegativeInt(params.page, DEFAULT_PAGE);
   const limit = Math.min(
-    Math.max(toPositiveInt(params.limit, DEFAULT_LIMIT), 1),
+    Math.max(toNonNegativeInt(params.limit, DEFAULT_LIMIT), 1),
     MAX_LIMIT,
   );
-  const skip = (page - 1) * limit;
+  const skip = page * limit;
 
   return { page, limit, skip, take: limit };
 };

@@ -1,0 +1,5 @@
+{
+  "type": "string",
+  "enum": ["in", "out"],
+  "x-readme-ref-name": "FriendRequestDirection"
+}

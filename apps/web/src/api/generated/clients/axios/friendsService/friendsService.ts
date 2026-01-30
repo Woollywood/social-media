@@ -14,6 +14,7 @@ import { friendsControllerCancelRequest } from './friendsControllerCancelRequest
 import { friendsControllerDeclineRequest } from './friendsControllerDeclineRequest.ts'
 import { friendsControllerListFriends } from './friendsControllerListFriends.ts'
 import { friendsControllerListRequests } from './friendsControllerListRequests.ts'
+import { friendsControllerSearchUsers } from './friendsControllerSearchUsers.ts'
 import { friendsControllerSendRequest } from './friendsControllerSendRequest.ts'
 
 export function friendsService() {
@@ -24,5 +25,6 @@ export function friendsService() {
     friendsControllerDeclineRequest,
     friendsControllerCancelRequest,
     friendsControllerListFriends,
+    friendsControllerSearchUsers,
   }
 }

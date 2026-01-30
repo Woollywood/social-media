@@ -59,7 +59,7 @@ export function usersControllerListSuspenseInfiniteQueryOptions(
       } as UsersControllerListQueryParams
       return usersControllerList(params, config)
     },
-    initialPageParam: 1,
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage['nextCursor'],
     getPreviousPageParam: (firstPage) => firstPage['nextCursor'],
   })

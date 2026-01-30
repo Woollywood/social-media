@@ -118,6 +118,28 @@ export class FriendsService {
         skip: pagination.skip,
         take: pagination.take,
         orderBy: { createdAt: 'desc' },
+        include: {
+          requester: {
+            select: {
+              id: true,
+              createdAt: true,
+              updatedAt: true,
+              email: true,
+              username: true,
+              avatarUrl: true,
+            },
+          },
+          receiver: {
+            select: {
+              id: true,
+              createdAt: true,
+              updatedAt: true,
+              email: true,
+              username: true,
+              avatarUrl: true,
+            },
+          },
+        },
       }),
       this.prismaService.friendRequest.count({ where }),
     ]);
@@ -156,6 +178,10 @@ export class FriendsService {
       items,
       meta: buildPaginationMeta(total, pagination.page, pagination.limit),
     };
+  }
+
+  listUsersToFriend(userId: string, pagination: PaginationResult) {
+    return this.usersService.listNonFriends(userId, pagination);
   }
 
   async acceptRequest(userId: string, requestId: string) {

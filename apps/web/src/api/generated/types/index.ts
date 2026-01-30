@@ -33,10 +33,18 @@ export type {
 export type { AuthTokensDto } from './AuthTokensDto.ts'
 export type { CreateFriendRequestDto } from './CreateFriendRequestDto.ts'
 export type {
+  FriendRequestDirectionEnumKey,
+  FriendRequestDirection,
+} from './FriendRequestDirection.ts'
+export type {
   FriendRequestDtoStatusEnumKey,
   FriendRequestDto,
 } from './FriendRequestDto.ts'
 export type { FriendRequestsListDto } from './FriendRequestsListDto.ts'
+export type {
+  FriendRequestStatusEnumKey,
+  FriendRequestStatus,
+} from './FriendRequestStatus.ts'
 export type {
   FriendsControllerAcceptRequestPathParams,
   FriendsControllerAcceptRequest200,
@@ -67,6 +75,12 @@ export type {
   FriendsControllerListRequestsQueryResponse,
   FriendsControllerListRequestsQuery,
 } from './friendsController/FriendsControllerListRequests.ts'
+export type {
+  FriendsControllerSearchUsersQueryParams,
+  FriendsControllerSearchUsers200,
+  FriendsControllerSearchUsersQueryResponse,
+  FriendsControllerSearchUsersQuery,
+} from './friendsController/FriendsControllerSearchUsers.ts'
 export type {
   FriendsControllerSendRequest201,
   FriendsControllerSendRequestMutationRequest,
@@ -112,5 +126,7 @@ export type {
   UsersControllerListQuery,
 } from './usersController/UsersControllerList.ts'
 export type { UsersListDto } from './UsersListDto.ts'
+export { friendRequestDirectionEnum } from './FriendRequestDirection.ts'
 export { friendRequestDtoStatusEnum } from './FriendRequestDto.ts'
+export { friendRequestStatusEnum } from './FriendRequestStatus.ts'
 export { notificationDtoTypeEnum } from './NotificationDto.ts'

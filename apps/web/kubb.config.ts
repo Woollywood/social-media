@@ -81,7 +81,7 @@ export default defineConfig(() => {
         },
         infinite: {
           queryParam: 'page',
-          initialPageParam: 1,
+          initialPageParam: 0,
           cursorParam: 'nextCursor',
         },
         query: {

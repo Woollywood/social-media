@@ -10,6 +10,8 @@ export class FriendRequestsQueryDto extends PaginationQueryDto {
   @ApiPropertyOptional({
     enum: FriendRequestDirection,
     default: FriendRequestDirection.In,
+    description: 'Request direction relative to current user.',
+    enumName: 'FriendRequestDirection',
   })
   @IsOptional()
   @IsEnum(FriendRequestDirection)
@@ -18,6 +20,8 @@ export class FriendRequestsQueryDto extends PaginationQueryDto {
   @ApiPropertyOptional({
     enum: FriendRequestStatus,
     default: FriendRequestStatus.Pending,
+    description: 'Filter by request status.',
+    enumName: 'FriendRequestStatus',
   })
   @IsOptional()
   @IsEnum(FriendRequestStatus)

@@ -9,6 +9,8 @@
  * Do not edit manually.
  */
 
+import type { UserDto } from './UserDto.ts'
+
 export const friendRequestDtoStatusEnum = {
   PENDING: 'PENDING',
   ACCEPTED: 'ACCEPTED',
@@ -44,4 +46,12 @@ export type FriendRequestDto = {
    * @type string
    */
   receiverId: string
+  /**
+   * @type object | undefined
+   */
+  requester?: UserDto | undefined
+  /**
+   * @type object | undefined
+   */
+  receiver?: UserDto | undefined
 }

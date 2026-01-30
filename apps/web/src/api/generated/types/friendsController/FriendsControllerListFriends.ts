@@ -13,9 +13,9 @@ import type { FriendsListDto } from '../FriendsListDto.ts'
 
 export type FriendsControllerListFriendsQueryParams = {
   /**
-   * @description Page number starting from 1.
-   * @minLength 1
-   * @default 1
+   * @description Page number starting from 0.
+   * @minLength 0
+   * @default 0
    * @type number | undefined
    */
   page?: number | undefined

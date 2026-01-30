@@ -11,7 +11,7 @@
 
 import type { UsersListDto } from '../UsersListDto.ts'
 
-export type UsersControllerListQueryParams = {
+export type FriendsControllerSearchUsersQueryParams = {
   /**
    * @description Page number starting from 0.
    * @minLength 0
@@ -29,12 +29,13 @@ export type UsersControllerListQueryParams = {
   limit?: number | undefined
 }
 
-export type UsersControllerList200 = UsersListDto
+export type FriendsControllerSearchUsers200 = UsersListDto
 
-export type UsersControllerListQueryResponse = UsersControllerList200
+export type FriendsControllerSearchUsersQueryResponse =
+  FriendsControllerSearchUsers200
 
-export type UsersControllerListQuery = {
-  Response: UsersControllerList200
-  QueryParams: UsersControllerListQueryParams
+export type FriendsControllerSearchUsersQuery = {
+  Response: FriendsControllerSearchUsers200
+  QueryParams: FriendsControllerSearchUsersQueryParams
   Errors: any
 }

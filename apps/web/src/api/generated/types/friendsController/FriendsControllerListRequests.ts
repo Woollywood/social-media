@@ -9,13 +9,15 @@
  * Do not edit manually.
  */
 
+import type { FriendRequestDirection } from '../FriendRequestDirection.ts'
 import type { FriendRequestsListDto } from '../FriendRequestsListDto.ts'
+import type { FriendRequestStatus } from '../FriendRequestStatus.ts'
 
 export type FriendsControllerListRequestsQueryParams = {
   /**
-   * @description Page number starting from 1.
-   * @minLength 1
-   * @default 1
+   * @description Page number starting from 0.
+   * @minLength 0
+   * @default 0
    * @type number | undefined
    */
   page?: number | undefined
@@ -28,15 +30,15 @@ export type FriendsControllerListRequestsQueryParams = {
    */
   limit?: number | undefined
   /**
+   * @description Request direction relative to current user.
    * @default "in"
-   * @type string | undefined
    */
-  direction?: string | undefined
+  direction?: FriendRequestDirection | undefined
   /**
+   * @description Filter by request status.
    * @default "PENDING"
-   * @type string | undefined
    */
-  status?: string | undefined
+  status?: FriendRequestStatus | undefined
 }
 
 export type FriendsControllerListRequests200 = FriendRequestsListDto

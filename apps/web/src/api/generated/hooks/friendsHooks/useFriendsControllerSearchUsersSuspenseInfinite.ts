@@ -19,40 +19,40 @@ import type {
   UseSuspenseInfiniteQueryResult,
 } from '@tanstack/react-query'
 import type {
-  FriendsControllerListRequestsQueryResponse,
-  FriendsControllerListRequestsQueryParams,
-} from '../../types/friendsController/FriendsControllerListRequests.ts'
+  FriendsControllerSearchUsersQueryResponse,
+  FriendsControllerSearchUsersQueryParams,
+} from '../../types/friendsController/FriendsControllerSearchUsers.ts'
 import {
   infiniteQueryOptions,
   useSuspenseInfiniteQuery,
 } from '@tanstack/react-query'
-import { friendsControllerListRequests } from '../../clients/axios/friendsService/friendsControllerListRequests.ts'
+import { friendsControllerSearchUsers } from '../../clients/axios/friendsService/friendsControllerSearchUsers.ts'
 
-export const friendsControllerListRequestsSuspenseInfiniteQueryKey = (
-  params: FriendsControllerListRequestsQueryParams = {}
+export const friendsControllerSearchUsersSuspenseInfiniteQueryKey = (
+  params: FriendsControllerSearchUsersQueryParams = {}
 ) =>
   [
-    { url: '/api/v1/friends/requests' },
+    { url: '/api/v1/friends/search' },
     ...(params ? [params] : []),
   ] as const
 
-export type FriendsControllerListRequestsSuspenseInfiniteQueryKey =
+export type FriendsControllerSearchUsersSuspenseInfiniteQueryKey =
   ReturnType<
-    typeof friendsControllerListRequestsSuspenseInfiniteQueryKey
+    typeof friendsControllerSearchUsersSuspenseInfiniteQueryKey
   >
 
-export function friendsControllerListRequestsSuspenseInfiniteQueryOptions(
-  params?: FriendsControllerListRequestsQueryParams,
+export function friendsControllerSearchUsersSuspenseInfiniteQueryOptions(
+  params?: FriendsControllerSearchUsersQueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
   const queryKey =
-    friendsControllerListRequestsSuspenseInfiniteQueryKey(params)
+    friendsControllerSearchUsersSuspenseInfiniteQueryKey(params)
   return infiniteQueryOptions<
-    FriendsControllerListRequestsQueryResponse,
+    FriendsControllerSearchUsersQueryResponse,
     ResponseErrorConfig<Error>,
-    InfiniteData<FriendsControllerListRequestsQueryResponse>,
+    InfiniteData<FriendsControllerSearchUsersQueryResponse>,
     typeof queryKey,
-    NonNullable<FriendsControllerListRequestsQueryParams['page']>
+    NonNullable<FriendsControllerSearchUsersQueryParams['page']>
   >({
     queryKey,
     queryFn: async ({ signal, pageParam }) => {
@@ -61,9 +61,9 @@ export function friendsControllerListRequestsSuspenseInfiniteQueryOptions(
       params = {
         ...(params ?? {}),
         ['page']:
-          pageParam as unknown as FriendsControllerListRequestsQueryParams['page'],
-      } as FriendsControllerListRequestsQueryParams
-      return friendsControllerListRequests(params, config)
+          pageParam as unknown as FriendsControllerSearchUsersQueryParams['page'],
+      } as FriendsControllerSearchUsersQueryParams
+      return friendsControllerSearchUsers(params, config)
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage['nextCursor'],
@@ -72,20 +72,20 @@ export function friendsControllerListRequestsSuspenseInfiniteQueryOptions(
 }
 
 /**
- * @summary List friend requests.
- * {@link /api/v1/friends/requests}
+ * @summary Search users to add as friends.
+ * {@link /api/v1/friends/search}
  */
-export function useFriendsControllerListRequestsSuspenseInfinite<
-  TQueryFnData = FriendsControllerListRequestsQueryResponse,
+export function useFriendsControllerSearchUsersSuspenseInfinite<
+  TQueryFnData = FriendsControllerSearchUsersQueryResponse,
   TError = ResponseErrorConfig<Error>,
   TData = InfiniteData<TQueryFnData>,
   TQueryKey extends QueryKey =
-    FriendsControllerListRequestsSuspenseInfiniteQueryKey,
+    FriendsControllerSearchUsersSuspenseInfiniteQueryKey,
   TPageParam = NonNullable<
-    FriendsControllerListRequestsQueryParams['page']
+    FriendsControllerSearchUsersQueryParams['page']
   >,
 >(
-  params?: FriendsControllerListRequestsQueryParams,
+  params?: FriendsControllerSearchUsersQueryParams,
   options: {
     query?: Partial<
       UseSuspenseInfiniteQueryOptions<
@@ -104,11 +104,11 @@ export function useFriendsControllerListRequestsSuspenseInfinite<
   const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
     queryOptions?.queryKey ??
-    friendsControllerListRequestsSuspenseInfiniteQueryKey(params)
+    friendsControllerSearchUsersSuspenseInfiniteQueryKey(params)
 
   const query = useSuspenseInfiniteQuery(
     {
-      ...friendsControllerListRequestsSuspenseInfiniteQueryOptions(
+      ...friendsControllerSearchUsersSuspenseInfiniteQueryOptions(
         params,
         config
       ),

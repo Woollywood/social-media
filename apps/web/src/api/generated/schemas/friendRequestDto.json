@@ -18,6 +18,46 @@
     "receiverId": {
       "type": "string",
       "example": "bb0e686d-5ac7-4d98-8b08-8f4c51b3b961"
+    },
+    "requester": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "email": { "type": "string" },
+        "username": { "type": "string" },
+        "avatarUrl": { "type": "string", "nullable": true }
+      },
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "email",
+        "username",
+        "avatarUrl"
+      ],
+      "x-readme-ref-name": "UserDto"
+    },
+    "receiver": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "email": { "type": "string" },
+        "username": { "type": "string" },
+        "avatarUrl": { "type": "string", "nullable": true }
+      },
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "email",
+        "username",
+        "avatarUrl"
+      ],
+      "x-readme-ref-name": "UserDto"
     }
   },
   "required": [

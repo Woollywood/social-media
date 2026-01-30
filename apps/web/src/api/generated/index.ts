@@ -14,6 +14,9 @@ export type { FriendsControllerListFriendsSuspenseInfiniteQueryKey } from './hoo
 export type { FriendsControllerListRequestsQueryKey } from './hooks/friendsHooks/useFriendsControllerListRequests.ts'
 export type { FriendsControllerListRequestsSuspenseQueryKey } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspense.ts'
 export type { FriendsControllerListRequestsSuspenseInfiniteQueryKey } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspenseInfinite.ts'
+export type { FriendsControllerSearchUsersQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsers.ts'
+export type { FriendsControllerSearchUsersSuspenseQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspense.ts'
+export type { FriendsControllerSearchUsersSuspenseInfiniteQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspenseInfinite.ts'
 export type { FriendsControllerSendRequestMutationKey } from './hooks/friendsHooks/useFriendsControllerSendRequest.ts'
 export type { NotificationsControllerListQueryKey } from './hooks/notificationsHooks/useNotificationsControllerList.ts'
 export type { NotificationsControllerListSuspenseQueryKey } from './hooks/notificationsHooks/useNotificationsControllerListSuspense.ts'
@@ -58,10 +61,18 @@ export type {
 export type { AuthTokensDto } from './types/AuthTokensDto.ts'
 export type { CreateFriendRequestDto } from './types/CreateFriendRequestDto.ts'
 export type {
+  FriendRequestDirectionEnumKey,
+  FriendRequestDirection,
+} from './types/FriendRequestDirection.ts'
+export type {
   FriendRequestDtoStatusEnumKey,
   FriendRequestDto,
 } from './types/FriendRequestDto.ts'
 export type { FriendRequestsListDto } from './types/FriendRequestsListDto.ts'
+export type {
+  FriendRequestStatusEnumKey,
+  FriendRequestStatus,
+} from './types/FriendRequestStatus.ts'
 export type {
   FriendsControllerAcceptRequestPathParams,
   FriendsControllerAcceptRequest200,
@@ -92,6 +103,12 @@ export type {
   FriendsControllerListRequestsQueryResponse,
   FriendsControllerListRequestsQuery,
 } from './types/friendsController/FriendsControllerListRequests.ts'
+export type {
+  FriendsControllerSearchUsersQueryParams,
+  FriendsControllerSearchUsers200,
+  FriendsControllerSearchUsersQueryResponse,
+  FriendsControllerSearchUsersQuery,
+} from './types/friendsController/FriendsControllerSearchUsers.ts'
 export type {
   FriendsControllerSendRequest201,
   FriendsControllerSendRequestMutationRequest,
@@ -148,6 +165,7 @@ export { friendsControllerCancelRequest } from './clients/axios/friendsService/f
 export { friendsControllerDeclineRequest } from './clients/axios/friendsService/friendsControllerDeclineRequest.ts'
 export { friendsControllerListFriends } from './clients/axios/friendsService/friendsControllerListFriends.ts'
 export { friendsControllerListRequests } from './clients/axios/friendsService/friendsControllerListRequests.ts'
+export { friendsControllerSearchUsers } from './clients/axios/friendsService/friendsControllerSearchUsers.ts'
 export { friendsControllerSendRequest } from './clients/axios/friendsService/friendsControllerSendRequest.ts'
 export { friendsService } from './clients/axios/friendsService/friendsService.ts'
 export { notificationsControllerList } from './clients/axios/notificationsService/notificationsControllerList.ts'
@@ -205,6 +223,15 @@ export { useFriendsControllerListRequestsSuspense } from './hooks/friendsHooks/u
 export { friendsControllerListRequestsSuspenseInfiniteQueryKey } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspenseInfinite.ts'
 export { friendsControllerListRequestsSuspenseInfiniteQueryOptions } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspenseInfinite.ts'
 export { useFriendsControllerListRequestsSuspenseInfinite } from './hooks/friendsHooks/useFriendsControllerListRequestsSuspenseInfinite.ts'
+export { friendsControllerSearchUsersQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsers.ts'
+export { friendsControllerSearchUsersQueryOptions } from './hooks/friendsHooks/useFriendsControllerSearchUsers.ts'
+export { useFriendsControllerSearchUsers } from './hooks/friendsHooks/useFriendsControllerSearchUsers.ts'
+export { friendsControllerSearchUsersSuspenseQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspense.ts'
+export { friendsControllerSearchUsersSuspenseQueryOptions } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspense.ts'
+export { useFriendsControllerSearchUsersSuspense } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspense.ts'
+export { friendsControllerSearchUsersSuspenseInfiniteQueryKey } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspenseInfinite.ts'
+export { friendsControllerSearchUsersSuspenseInfiniteQueryOptions } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspenseInfinite.ts'
+export { useFriendsControllerSearchUsersSuspenseInfinite } from './hooks/friendsHooks/useFriendsControllerSearchUsersSuspenseInfinite.ts'
 export { friendsControllerSendRequestMutationKey } from './hooks/friendsHooks/useFriendsControllerSendRequest.ts'
 export { friendsControllerSendRequestMutationOptions } from './hooks/friendsHooks/useFriendsControllerSendRequest.ts'
 export { useFriendsControllerSendRequest } from './hooks/friendsHooks/useFriendsControllerSendRequest.ts'
@@ -232,5 +259,7 @@ export { useUsersControllerListSuspense } from './hooks/usersHooks/useUsersContr
 export { usersControllerListSuspenseInfiniteQueryKey } from './hooks/usersHooks/useUsersControllerListSuspenseInfinite.ts'
 export { usersControllerListSuspenseInfiniteQueryOptions } from './hooks/usersHooks/useUsersControllerListSuspenseInfinite.ts'
 export { useUsersControllerListSuspenseInfinite } from './hooks/usersHooks/useUsersControllerListSuspenseInfinite.ts'
+export { friendRequestDirectionEnum } from './types/FriendRequestDirection.ts'
 export { friendRequestDtoStatusEnum } from './types/FriendRequestDto.ts'
+export { friendRequestStatusEnum } from './types/FriendRequestStatus.ts'
 export { notificationDtoTypeEnum } from './types/NotificationDto.ts'

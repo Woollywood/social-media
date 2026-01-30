@@ -51,7 +51,7 @@ export function authControllerMeSuspenseInfiniteQueryOptions(
       config.signal = signal
       return authControllerMe(config)
     },
-    initialPageParam: 1,
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage['nextCursor'],
     getPreviousPageParam: (firstPage) => firstPage['nextCursor'],
   })

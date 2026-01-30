@@ -65,7 +65,7 @@ export function notificationsControllerListSuspenseInfiniteQueryOptions(
       } as NotificationsControllerListQueryParams
       return notificationsControllerList(params, config)
     },
-    initialPageParam: 1,
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage['nextCursor'],
     getPreviousPageParam: (firstPage) => firstPage['nextCursor'],
   })

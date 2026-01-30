@@ -1,6 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsOptional, IsUUID } from 'class-validator';
 
+import { UserDto } from '../../dto/user/dto/user.dto';
+
 import { FriendRequestStatus } from './friend-request-status.enum';
 
 export class FriendRequestDto {
@@ -36,4 +38,12 @@ export class FriendRequestDto {
   })
   @IsUUID()
   receiverId: string;
+
+  @ApiPropertyOptional({ type: UserDto })
+  @IsOptional()
+  requester?: UserDto;
+
+  @ApiPropertyOptional({ type: UserDto })
+  @IsOptional()
+  receiver?: UserDto;
 }
